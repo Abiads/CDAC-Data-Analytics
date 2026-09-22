@@ -1,0 +1,285 @@
+================================================================================
+                    C-DAC ACTS, PUNE — COURSE SYLLABUS
+                        DATA ANALYTICS (PGCP-AI)
+                              August 2026
+================================================================================
+
+--------------------------------------------------------------------------------
+1. COURSE INFORMATION
+--------------------------------------------------------------------------------
+Course Title       : Data Analytics
+Programme          : PGCP-AI (Post Graduate Certificate Programme in AI)
+Batch              : August 2026
+Centre             : ACTS, Pune
+Total Duration     : 120 Hours
+                     • Theory (T)         : 50 Hours
+                     • Lab / Practical (L): 50 Hours
+                     • Self-Learning (SL) : 20 Hours
+
+Course Objective   : To introduce students to fundamental and applied concepts 
+                     of Data Analytics, statistical modeling, predictive & 
+                     prescriptive analytics, and business intelligence.
+
+Prerequisites      : • Knowledge of Python Programming
+                     • Fundamentals of Statistics and Mathematics
+
+Evaluation Scheme  : • Theory Examination   : 40%
+                     • Lab Examination      : 40%
+                     • Internal Assessment  : 20%
+                     ---------------------------
+                       Total                : 100%
+
+--------------------------------------------------------------------------------
+2. COURSE MATERIALS & REFERENCES
+--------------------------------------------------------------------------------
+Textbook:
+  • Business Analytics (2nd Edition) – James R. Evans, Pearson
+
+Reference Books:
+  1. Business Analytics: Data Analysis & Decision-Making – S. Christian Albright & Wayne L. Winston
+  2. Data Science for Business – Foster Provost & Tom Fawcett
+  3. Data Science and Analytics – V. K. Jain
+  4. Data Analytics for Beginners: A Beginner's Guide to Learn and Master Data Analytics – Robert J. Woz
+  5. Data Analytics: Become a Master in Data Analytics – Richard Dorsey
+
+Teaching Note:
+  • Lab assignments listed below are indicative; faculty shall provide adequate
+    assignments and datasets for comprehensive practice.
+
+================================================================================
+3. SESSION-WISE CURRICULUM BREAKDOWN
+================================================================================
+
+--------------------------------------------------------------------------------
+Sessions 1 & 2 | Hours: 4T + 4L + 2SL
+--------------------------------------------------------------------------------
+Theory:
+  • Introduction to Business Analytics using Case Studies
+  • Data Analytics Life Cycle: Discovery, Data Preparation, Model Planning
+  • Model Building & Implementation
+  • Quality Assurance, Documentation, Management Approval
+  • Environment Setup and Installation
+  • Acceptance and Operation
+
+Lab Assignment:
+  • Setup workspace in either Google Colab or Jupyter Notebook.
+  • Review documentation and practice basic operations with Pandas, NumPy, 
+    and Scikit-learn (sklearn) libraries.
+
+--------------------------------------------------------------------------------
+Session 3 | Hours: 2T + 2L + 2SL
+--------------------------------------------------------------------------------
+Theory:
+  • Intelligent Data Analysis and Nature of Data
+  • Analytic Processes and Tools
+  • Analysis vs. Reporting
+  • Modern Data Analytic Tools
+
+Lab Assignment:
+  • Explore and analyze the nature of data across various data types.
+
+--------------------------------------------------------------------------------
+Session 4 | Hours: 2T + 2L + 2SL
+--------------------------------------------------------------------------------
+Theory:
+  • Visualization and Exploring Data
+  • Case Studies: Making Sound Business Decisions Based on Data
+
+Lab Assignment:
+  • Load a sample dataset, explore features, and draw insights.
+  • Utilize Matplotlib and Seaborn libraries for data visualization.
+
+--------------------------------------------------------------------------------
+Session 5 | Hours: 2T + 2L + 2SL
+--------------------------------------------------------------------------------
+Theory:
+  • Descriptive Statistical Measures
+  • Summary Statistics — Central Tendency & Dispersion:
+    - Mean, Median, Mode
+    - Quartiles, Percentiles, Range, Interquartile Range (IQR)
+    - Variance, Standard Deviation, and Coefficient of Variation
+
+Lab Assignment:
+  • Load a dataset and compute the mean, median, mode, and other central 
+    tendency and dispersion metrics.
+
+--------------------------------------------------------------------------------
+Sessions 6 & 7 | Hours: 4T + 4L + 2SL
+--------------------------------------------------------------------------------
+Theory:
+  • Sample & Population, Univariate and Bivariate Sampling, Re-sampling
+  • Sample Spaces and Events
+  • Joint, Conditional, and Marginal Probability
+  • Bayes’ Theorem
+
+Lab Assignment:
+  • Load a dataset, implement a Naive Bayes classifier, and predict outcomes.
+
+--------------------------------------------------------------------------------
+Session 8 | Hours: 2T + 2L + 2SL
+--------------------------------------------------------------------------------
+Theory:
+  • Random Variables
+  • Probability Distribution and Data
+  • Continuous and Discrete Distributions (Normal, Binomial, Poisson)
+  • Central Limit Theorem (CLT)
+
+Lab Assignment:
+  • Generate random numbers and test/verify if they follow a normal distribution 
+    using SciPy libraries.
+
+--------------------------------------------------------------------------------
+Session 9 | Hours: 2T + 2L
+--------------------------------------------------------------------------------
+Theory:
+  • Sampling and Estimation
+  • Statistical Interfaces
+
+Lab Assignment:
+  • Load a dataset and explore sampling techniques.
+
+--------------------------------------------------------------------------------
+Session 10 | Hours: 2T + 2L
+--------------------------------------------------------------------------------
+Theory:
+  • Concepts of Correlation
+  • Covariance
+  • Pearson Correlation
+  • Outliers
+
+Lab Assignment:
+  • Load a dataset and determine covariance and correlation between fields.
+  • Detect and handle outliers in the dataset.
+
+--------------------------------------------------------------------------------
+Sessions 11 & 12 | Hours: 4T + 4L + 2SL
+--------------------------------------------------------------------------------
+Theory:
+  • Hypothesis Testing
+  • Z-Test
+  • Chi-Square Test
+  • Skewness
+
+Lab Assignment:
+  • Perform hypothesis testing (Z-test, Chi-square) on sample data and analyze 
+    distribution skewness.
+
+--------------------------------------------------------------------------------
+Session 13 | Hours: 2T + 2L
+--------------------------------------------------------------------------------
+Theory:
+  • Predictive Modelling and Analysis:
+    - Applications and Types
+    - Benefits and Challenges
+    - The Future of Predictive Modelling
+    - Limitations of Predictive Modelling
+    - Predictive Modelling Tools
+
+Lab Assignment:
+  • Set up a predictive modeling pipeline and train baseline models.
+
+--------------------------------------------------------------------------------
+Sessions 14, 15 & 16 | Hours: 6T + 6L
+--------------------------------------------------------------------------------
+Theory:
+  • Predictive Modelling (From Correlation to Supervised Segmentation):
+    - Identifying Informative Attributes
+    - Segmenting Data by Progressive Attributes
+    - Model Induction and Prediction
+    - Supervised Segmentation
+    - Visualizing Segmentations
+    - Trees as Sets of Rules
+    - Probability Estimation
+  • Prescriptive Modelling:
+    - Difference between Predictive and Prescriptive Modelling
+    - Working Principles of Prescriptive Analytics
+    - Practical Examples and Use Cases
+
+Lab Assignment:
+  • Build and visualize decision trees; perform supervised segmentation and 
+    extract decision rules.
+
+--------------------------------------------------------------------------------
+Sessions 17 & 18 | Hours: 4T + 4L
+--------------------------------------------------------------------------------
+Theory:
+  • Regression Analysis
+  • Forecasting Techniques
+
+Lab Assignment:
+  • Implement linear regression models and apply forecasting techniques on 
+    datasets.
+
+--------------------------------------------------------------------------------
+Sessions 19 & 20 | Hours: 4T + 4L
+--------------------------------------------------------------------------------
+Theory:
+  • Simulation and Risk Analysis
+  • Optimization: Linear and Non-linear Optimization
+
+Lab Assignment:
+  • Formulate and solve linear optimization problems; run basic simulation 
+    models.
+
+--------------------------------------------------------------------------------
+Session 21 | Hours: 2T + 2L
+--------------------------------------------------------------------------------
+Theory:
+  • Overfitting and Its Avoidance
+  • Generalization
+  • Holdout Evaluation vs. Cross-Validation
+
+Lab Assignment:
+  • Apply cross-validation strategies and compare training vs. validation errors 
+    to prevent overfitting.
+
+--------------------------------------------------------------------------------
+Session 22 | Hours: 2T + 2L
+--------------------------------------------------------------------------------
+Theory:
+  • Decision Analytics
+  • Evaluating Classifiers:
+    - Analytical Framework
+    - Evaluation Metrics & Baselines
+    - Performance and Implications for Investments in Data
+
+Lab Assignment:
+  • Evaluate classification models using confusion matrices, ROC-AUC, and 
+    baseline performance comparisons.
+
+--------------------------------------------------------------------------------
+Session 23 | Hours: 2T + 2L
+--------------------------------------------------------------------------------
+Theory:
+  • Evidence and Probabilities
+  • Explicit Evidence Combination with Bayes' Rule
+  • Probabilistic Reasoning
+
+Lab Assignment:
+  • Implement Bayesian evidence updating and probabilistic reasoning models.
+
+--------------------------------------------------------------------------------
+Session 24 | Hours: 2T + 2L
+--------------------------------------------------------------------------------
+Theory:
+  • Factor Analysis
+  • Directional Data Analytics
+  • Functional Data Analysis
+
+Lab Assignment:
+  • Implement Factor Analysis and dimensionality reduction on multidimensional 
+    datasets.
+
+--------------------------------------------------------------------------------
+Session 25 | Hours: 2T + 2L
+--------------------------------------------------------------------------------
+Theory:
+  • Introduction to Power BI Architecture and Interface
+  • Importing and Transforming Data using Power Query
+  • Creating Data Visualizations using Charts and Reports
+  • Designing Interactive Dashboards and Sharing Insights
+
+Lab Assignment:
+  • Build an end-to-end interactive dashboard in Power BI / visualization tool 
+    with transformed data, custom charts, and KPI reports.
+================================================================================
