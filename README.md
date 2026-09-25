@@ -19,9 +19,12 @@ This repository contains the complete syllabus, structured module study notes, v
 ├── syallabus.txt                              # Clean formatted syllabus (plain text)
 ├── syllabus.md                                # Detailed syllabus with hours breakdown (Markdown)
 ├── README.md                                  # Repository landing page and index
+├── Day1/                                      # Advanced Python Foundations (Decorators, ABC, Generators)
+├── Day2/                                      # NumPy ndarray Architecture, Vectorized Math & Pandas
+├── cheat_sheets/                              # Comprehensive data science & Python PDF cheat sheets
 └── notes/                                     # Comprehensive study guides and code labs
     ├── 00_rote_learning_and_mnemonics.md     # Exam tricks, mnemonics, and flashcards
-    ├── 01_foundations_and_eda.md             # Sessions 1–4: Lifecycle, EDA & Visualization
+    ├── 01_foundations_and_eda.md             # Sessions 1–4: Lifecycle, Setup, EDA & Visualization
     ├── 02_statistics_and_probability.md      # Sessions 5–12: Stats, Bayes, CLT, Hypothesis Testing
     ├── 03_predictive_and_prescriptive_analytics.md # Sessions 13–20: Decision Trees, OLS, Simulation
     ├── 04_evaluation_advanced_analytics_powerbi.md # Sessions 21–25: Validation, PCA, Power BI

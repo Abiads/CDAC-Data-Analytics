@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<results>
+  <metadata>
+    <source>Sports Analytics Cloud / Colab Pipeline</source>
+    <timestamp>2026-09-25T10:00:00Z</timestamp>
+    <schema_version>1.0</schema_version>
+  </metadata>
+  <matches>
+    <match id="M101" date="2026-04-10" format="T20">
+      <venue>Wankhede Stadium, Mumbai</venue>
+      <teams>
+        <team1>Mumbai Indians</team1>
+        <team2>Chennai Super Kings</team2>
+      </teams>
+      <result>
+        <winner>Mumbai Indians</winner>
+        <margin>5 wickets</margin>
+        <player_of_match>Rohit Sharma</player_of_match>
+      </result>
+    </match>
+    <match id="M102" date="2026-04-11" format="T20">
+      <venue>M. Chinnaswamy Stadium, Bengaluru</venue>
+      <teams>
+        <team1>Royal Challengers Bengaluru</team1>
+        <team2>Kolkata Knight Riders</team2>
+      </teams>
+      <result>
+        <winner>Royal Challengers Bengaluru</winner>
+        <margin>18 runs</margin>
+        <player_of_match>Virat Kohli</player_of_match>
+      </result>
+    </match>
+    <match id="M103" date="2026-04-12" format="T20">
+      <venue>Narendra Modi Stadium, Ahmedabad</venue>
+      <teams>
+        <team1>Gujarat Titans</team1>
+        <team2>Delhi Capitals</team2>
+      </teams>
+      <result>
+        <winner>Gujarat Titans</winner>
+        <margin>6 wickets</margin>
+        <player_of_match>Shubman Gill</player_of_match>
+      </result>
+    </match>
+  </matches>
+</results>

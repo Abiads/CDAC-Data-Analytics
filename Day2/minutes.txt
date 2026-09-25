@@ -1,0 +1,19 @@
+Day 2: Scientific Python, NumPy Architecture & Pandas Core
+==========================================================
+1. Environment Setup & Dependency Management:
+   - python -m venv cdacvenv
+   - cdacvenv\Scripts\activate (Windows) / source cdacvenv/bin/activate (Linux/Mac)
+   - pip install -r requirements.txt (numpy, pandas, etc.)
+
+2. NumPy Foundations:
+   - ndarray internal architecture: contiguous C-buffers, CPU cache locality, dtypes
+   - Tensor initialization: zeros, ones, full, eye, arange, uniform random sampling
+   - Indexing, Slicing & Views: zero-copy slicing vs copy, integer indexing, boolean masking
+   - Vectorized mathematical operations & ufuncs (element-wise arithmetic, exp, log, sqrt)
+   - Memory buffer re-use via the `out=` parameter
+   - Statistical reductions & moments: sum, mean (1st moment), std/var (2nd moment), Z-score normalization
+   - Linear algebra: dot product, matrix multiplication (@ / np.dot), transposition (.T), rank expansion (np.newaxis), broadcasting rules, and Einstein summation (np.einsum)
+
+3. Pandas Foundations:
+   - pd.Series: 1D labeled array, index manipulation, vectorized arithmetic, descriptive statistics
+   - pd.DataFrame: 2D heterogeneous tabular structure, inspection via .info() and .describe()

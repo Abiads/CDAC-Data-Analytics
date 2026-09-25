@@ -34,8 +34,8 @@ flowchart LR
 
 ## 📖 Deep-Dive Theory & Conceptual Walkthrough
 
-### Sessions 1 & 2: Introduction to Business Analytics & The Project Lifecycle
-*(Hours: 4 Theory + 4 Lab + 2 Self-Learning)*
+### Session 1: Introduction to Business Analytics & The Project Lifecycle
+*(Hours: 2 Theory + 2 Lab + 1 Self-Learning)*
 
 #### 1. What is Business Analytics?
 Business Analytics is the systematic mathematical, statistical, and computational exploration of enterprise data to extract predictive and prescriptive insights.
@@ -66,6 +66,49 @@ Business Analytics is the systematic mathematical, statistical, and computationa
 6. **Acceptance, Operationalization & Operation:**
    - Deploy as a REST API microservice or batch inference pipeline.
    - Track data drift and performance decay over time.
+
+---
+
+### Session 2: Environment Setup, Computational Core & Statistical Foundations (NumPy & Pandas)
+*(Hours: 2 Theory + 2 Lab + 1 Self-Learning)*
+
+#### 1. Environment Setup & Workspace Configuration
+- **Virtual Environment Isolation:** Setting up dedicated Python virtual environments (`python -m venv cdacvenv`) prevents package conflicts and guarantees reproducibility across different development workstations.
+- **Core Scientific Stack:** Installation and version pinning of `numpy`, `pandas`, `matplotlib`, `seaborn`, and `scikit-learn` via `requirements.txt`.
+- **Execution Environments:** Jupyter Notebooks and Google Colab for rapid exploratory analysis vs. standalone modular Python scripts for production pipelines.
+
+#### 2. The Computational Core: NumPy ndarray Architecture
+- **Memory Layout & Contiguity:** Unlike standard Python lists (which store pointers to arbitrary heap objects), NumPy `ndarray` objects store data in homogeneous, contiguous C-order or Fortran-order memory blocks.
+- **CPU Cache Locality & SIMD:** Contiguous storage allows vector registers (AVX/SSE) to execute mathematical operations in parallel, operating up to 50x faster than native Python loops.
+- **Zero-Copy Slicing vs. Copies:** Basic slicing (`array[start:stop:step]`) creates a **view** sharing the underlying memory buffer (`np.may_share_memory() == True`). Advanced/fancy indexing (using integer index arrays or boolean masks) allocates a brand new memory copy.
+- **Type Precision (`dtype`):** Fixed bit-width representation (`int32`, `float64`, etc.) eliminates dynamic type-checking overhead during execution.
+
+#### 3. Vectorized Mathematics & Statistical Moments
+- **Vectorized Arithmetic & Ufuncs:** Element-wise broadcasting and universal functions (`ufuncs` like `np.add`, `np.subtract`, `np.multiply`, `np.divide`, `np.exp`, `np.log`).
+- **Memory Buffer Re-use:** Using the `out=` parameter (e.g., `np.multiply(a, scalar, out=buffer)`) to prevent unnecessary intermediate memory allocations in large-scale data workflows.
+- **Statistical Moments in Analytics:**
+  - **1st Moment (Mean / Central Tendency):** 
+    $$\mu = \frac{1}{N}\sum_{i=1}^{N} x_i$$
+  - **2nd Moment (Variance & Standard Deviation / Dispersion):**
+    $$\sigma^2 = \frac{1}{N}\sum_{i=1}^{N}(x_i - \mu)^2, \quad \sigma = \sqrt{\sigma^2}$$
+  - **Standardization (Z-Score Normalization):** Rescaling feature distributions to zero mean ($\mu=0$) and unit variance ($\sigma=1$):
+    $$z = \frac{x - \mu}{\sigma}$$
+  - **3rd Moment (Skewness):** Quantifies distributional asymmetry (left/negative vs. right/positive tail).
+  - **4th Moment (Kurtosis):** Measures tail heaviness and outlier likelihood relative to a Gaussian bell curve.
+
+#### 4. Linear Algebra & Broadcasting Mechanics
+- **Dot Products & Matrix Multiplication:** Inner products (`np.dot(a, b)`), matrix multiplication using the `@` operator (`A @ B`), and multidimensional contractions using Einstein summation notation (`np.einsum('ij,jk->ik', A, B)`).
+- **Rank Preservation & Expansion:** Using `np.newaxis` or `None` to elevate 1D vectors of shape `(N,)` to 2D column matrices `(N, 1)` or row matrices `(1, N)`.
+- **Broadcasting Rules:** Two dimensions are compatible when:
+  1. They are equal, OR
+  2. One of them is $1$.
+
+#### 5. Tabular Abstraction: Pandas Foundations
+- **`pd.Series` (1D):** Labeled one-dimensional array capable of holding any data type, featuring index alignment, vectorized aggregation (`.sum()`, `.mean()`, `.std()`, `.var()`), and custom key mapping.
+- **`pd.DataFrame` (2D):** Two-dimensional heterogeneous tabular data structure with labeled axes (rows and columns).
+- **Structural Inspection Tools:**
+  - `df.info()`: Inspects memory usage, column non-null counts, and storage dtypes.
+  - `df.describe()`: Generates the 5-number summary and parametric statistics (mean, std, percentiles) across numeric features.
 
 ---
 

@@ -1,0 +1,12 @@
+Day 1: Advanced Python Foundations
+===================================
+1. Closure & Nested Functions
+2. Decorators (Function-based & Class-based via __call__)
+3. Polymorphism using Abstract Base Classes (ABC)
+4. Inheritance and Mixins for Object Introspection
+5. Comprehensions, Generators & the yield keyword
+6. Coroutines and Cooperative Multitasking
+7. Context Managers (__enter__ and __exit__)
+8. Threading Basics (Concurrency in Python)
+9. Variable Scope (Local, Enclosing, Global, Nonlocal)
+10. Partial Functions and Currying (functools.partial)
