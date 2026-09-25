@@ -231,3 +231,11 @@ ts_df = pd.DataFrame({'Actual_Sales': daily_sales, '3_Day_SMA': sma_3})
 print(ts_df)
 print("=" * 65)
 ```
+
+---
+
+## 🖼️ Statistical Visualizations Output
+
+![Day 3 Statistical Visualizations](statistics_visualization.png)
+*(Generated from `Day3/O02_statistics_and_hypothesis_testing.py`)*
+
