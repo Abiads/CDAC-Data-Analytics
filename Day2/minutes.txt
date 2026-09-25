@@ -1,9 +1,9 @@
 Day 2: Scientific Python, NumPy Architecture & Pandas Core
 ==========================================================
 1. Environment Setup & Dependency Management:
-   - python -m venv cdacvenv
+   - python -m venv cdacvenv 
+   - pip install numpy pandas
    - cdacvenv\Scripts\activate (Windows) / source cdacvenv/bin/activate (Linux/Mac)
-   - pip install -r requirements.txt (numpy, pandas, etc.)
 
 2. NumPy Foundations:
    - ndarray internal architecture: contiguous C-buffers, CPU cache locality, dtypes

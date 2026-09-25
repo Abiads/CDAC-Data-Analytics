@@ -1,5 +1,5 @@
-Day 1: Advanced Python Foundations
-===================================
+Day 1: Python Foundations & Advanced Concepts
+===============================================
 1. Closure & Nested Functions
 2. Decorators (Function-based & Class-based via __call__)
 3. Polymorphism using Abstract Base Classes (ABC)
