@@ -32,7 +32,12 @@ spending = np.array([25.0, 32.5, 45.0, 28.0, 35.0, 110.0, 42.0, 38.5, 29.0, 52.0
 mean_val = np.mean(spending)
 trimmed_mean = stats.trim_mean(spending, 0.1)  # Trim top & bottom 10%
 median_val = np.median(spending)
-std_val = np.std(spending, ddof=1)  # ddof=1 for sample standard deviation (n-1)
+# Bessel's Correction:
+# Why ddof=1? Sample variance around sample mean (x̄) systematically underestimates
+# the true population spread (around μ). Dividing by (N - 1) instead of N inflates
+# the value back up to make it an UNBIASED estimator: E[s²] = σ².
+std_pop = np.std(spending, ddof=0)    # Population formula (divide by N)
+std_val = np.std(spending, ddof=1)    # Sample formula with Bessel's correction (divide by N - 1)
 q1, q3 = np.percentile(spending, [25, 75])
 iqr = q3 - q1
 lower_fence = q1 - 1.5 * iqr
@@ -44,7 +49,8 @@ kurt_val = stats.kurtosis(spending)  # Fisher excess kurtosis (Gaussian = 0)
 print(f"Sample Mean             : ${mean_val:.2f}")
 print(f"Trimmed Mean (10%)      : ${trimmed_mean:.2f}")
 print(f"Sample Median           : ${median_val:.2f}")
-print(f"Sample Std Dev (s)      : ${std_val:.2f} (Bessel's correction n-1)")
+print(f"Population Std Dev (σ)  : ${std_pop:.2f} (Biased: divide by N={len(spending)})")
+print(f"Sample Std Dev (s)      : ${std_val:.2f} (Bessel's correction: divide by N-1={len(spending)-1})")
 print(f"Interquartile Range(IQR): ${iqr:.2f} (Q1: ${q1:.2f}, Q3: ${q3:.2f})")
 print(f"Tukey Outlier Fences    : [${lower_fence:.2f}, ${upper_fence:.2f}]")
 outliers = spending[(spending < lower_fence) | (spending > upper_fence)]
