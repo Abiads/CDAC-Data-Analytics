@@ -89,6 +89,28 @@ Extreme values pull the Mean in their direction, while the Mode stays at the hig
 
 ---
 
+### 🎲 2.1 Master Probability Distributions Rote-Recall Table
+
+| Distribution Name | Type & Support | Exact PDF / PMF Formula | Mean $E[X]$ | Variance $\text{Var}(X)$ | Rapid Exam Memory Trigger |
+| :--- | :---: | :---: | :---: | :---: | :--- |
+| **Normal (Gaussian)** | Cont. $(-\infty, \infty)$ | $$f(x) = \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{1}{2}\left(\frac{x - \mu}{\sigma}\right)^2}$$ | $\mu$ | $\sigma^2$ | Bell curve, symmetric, 68-95-99.7% rule, regression errors. |
+| **Continuous Uniform**| Cont. $[a, b]$ | $$f(x) = \frac{1}{b - a}$$ | $\frac{a + b}{2}$ | $\frac{(b - a)^2}{12}$ | Flat rectangular density; CV random rotation $[-15^\circ, +15^\circ]$. |
+| **Exponential** | Cont. $[0, \infty)$ | $$f(x) = \lambda e^{-\lambda x} = \frac{1}{\theta} e^{-x/\theta}$$ | $\theta = \frac{1}{\lambda}$ | $\theta^2 = \frac{1}{\lambda^2}$ | Memoryless waiting time between arrivals; $\text{Std} = \text{Mean} = \theta$. |
+| **Gamma (Erlang)** | Cont. $(0, \infty)$ | $$f(x) = \frac{1}{\Gamma(k)\theta^k} x^{k-1} e^{-x/\theta}$$ | $k\theta$ | $k\theta^2$ | Sum of $k$ independent Exponential stages; daily rainfall; VaR reserves. |
+| **Beta** | Cont. $[0, 1]$ | $$f(x) = \frac{x^{\alpha-1}(1-x)^{\beta-1}}{B(\alpha, \beta)}$$ | $\frac{\alpha}{\alpha + \beta}$ | $\frac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta+1)}$ | Bounded to $[0, 1]$; models probabilities, conversion rates, Bayesian priors. |
+| **Student's t** | Cont. $(-\infty, \infty)$ | $$f(t) \propto \left(1 + \frac{t^2}{\nu}\right)^{-\frac{\nu+1}{2}}$$ | $0$ $(\nu > 1)$ | $\frac{\nu}{\nu - 2}$ $(\nu > 2)$ | Heavier tails than Normal; small samples ($n < 30$) when $\sigma$ unknown. |
+| **Chi-Square ($\chi^2$)**| Cont. $[0, \infty)$ | $$f(x) = \frac{1}{2^{k/2}\Gamma(k/2)} x^{\frac{k}{2}-1} e^{-\frac{x}{2}}$$ | $k$ | $2k$ | Sum of $k$ squared standard normals ($\sum Z_i^2$); Mean $= k$, Var $= 2k$. |
+| **F-Distribution** | Cont. $[0, \infty)$ | $$F = \frac{\chi_1^2 / d_1}{\chi_2^2 / d_2}$$ | $\frac{d_2}{d_2 - 2}$ | $\frac{2d_2^2(d_1+d_2-2)}{d_1(d_2-2)^2(d_2-4)}$ | Ratio of 2 variances; used in ANOVA and regression model significance. |
+| **Log-Normal** | Cont. $(0, \infty)$ | $$f(x) = \frac{1}{x\sigma\sqrt{2\pi}} e^{-\frac{(\ln x - \mu)^2}{2\sigma^2}}$$ | $e^{\mu + \sigma^2/2}$ | $(e^{\sigma^2}-1)e^{2\mu+\sigma^2}$ | $\ln(X) \sim \mathcal{N}$; strictly positive, heavy right tail (incomes, stock prices). |
+| **Bernoulli** | Disc. $\{0, 1\}$ | $$P(X=k) = p^k (1-p)^{1-k}$$ | $p$ | $p(1 - p)$ | Single binary coin toss / churn outcome ($p$ success, $1-p$ failure). |
+| **Binomial** | Disc. $\{0, \dots, n\}$| $$P(X=k) = \binom{n}{k} p^k (1-p)^{n-k}$$ | $np$ | $np(1 - p)$ | Number of successes in $n$ independent binary trials. |
+| **Poisson** | Disc. $\{0, 1, \dots\}$| $$P(X=k) = \frac{\lambda^k e^{-\lambda}}{k!}$$ | $\lambda$ | $\lambda$ | **Equidispersion:** $\text{Mean} = \text{Variance} = \lambda$ (rare arrival events). |
+| **Geometric** | Disc. $\{1, 2, \dots\}$| $$P(X=k) = (1-p)^{k-1} p$$ | $\frac{1}{p}$ | $\frac{1-p}{p^2}$ | Number of trials needed to encounter the **first** success. |
+| **Negative Binomial** | Disc. $\{0, 1, \dots\}$| $$P(X=k) = \binom{k+r-1}{k} p^r (1-p)^k$$ | $\frac{r(1-p)}{p}$ | $\frac{r(1-p)}{p^2}$ | Failures before $r$ successes; handles overdispersed Poisson count data. |
+| **Hypergeometric** | Disc. Subsets | $$P(X=k) = \frac{\binom{K}{k}\binom{N-K}{n-k}}{\binom{N}{n}}$$ | $n\frac{K}{N}$ | $n\frac{K}{N}(1-\frac{K}{N})\frac{N-n}{N-1}$ | Sampling **without replacement** from finite population $N$ (Dependent trials). |
+
+---
+
 ## 🚫 3. Critical Exam Traps to Avoid
 
 ### ⚠️ Trap 1: "Correlation $r = 0$ means no relationship"

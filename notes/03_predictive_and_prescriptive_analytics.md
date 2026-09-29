@@ -112,8 +112,20 @@ $$VIF_j = \frac{1}{1 - R_j^2}$$
 ### Sessions 19 & 20: Simulation & Optimization
 *(Hours: 4 Theory + 4 Lab)*
 
-#### 1. Monte Carlo Simulation
-Used when systems are subject to significant uncertainty and non-linear risk. By drawing thousands of random draws from known probability distributions for inputs, we build an empirical probability distribution for the outcome (e.g., project budget overrun probability).
+#### 1. Monte Carlo Simulation & Stochastic Risk Modeling
+Used when decision outcomes depend on multiple uncertain input variables interacting non-linearly. Rather than assuming static averages, Monte Carlo draws thousands of random synthetic trials from parameterized probability distributions:
+
+* **Key Input Distributions Used in Simulation:**
+  * **Normal Distribution $\mathcal{N}(\mu, \sigma^2)$:** Symmetric operational costs, demand fluctuations:
+    $$f(x) = \frac{1}{\sigma\sqrt{2\pi}} \exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)$$
+  * **Continuous Uniform $\mathcal{U}(a, b)$:** Equal likelihood between minimum $a$ and maximum $b$:
+    $$f(x) = \frac{1}{b - a}, \quad E[X] = \frac{a+b}{2}, \quad \text{Var}(X) = \frac{(b-a)^2}{12}$$
+  * **Triangular Distribution $\text{Triangular}(a, c, b)$:** Three-point risk estimate: optimistic ($a$), most likely mode ($c$), and pessimistic ($b$):
+    $$E[X] = \frac{a + b + c}{3}, \quad \text{Var}(X) = \frac{a^2 + b^2 + c^2 - ab - ac - bc}{18}$$
+  * **Beta-PERT Distribution:** Smoother continuous alternative weighting the mode $4\times$:
+    $$\mu = \frac{a + 4c + b}{6}, \quad \sigma = \frac{b - a}{6}, \quad \alpha = 1 + 4\left(\frac{c - a}{b - a}\right), \quad \beta = 1 + 4\left(\frac{b - c}{b - a}\right)$$
+  * **Exponential Distribution $\text{Exp}(\theta)$:** Machine failure intervals and customer service times ($f(x) = \frac{1}{\theta} e^{-x/\theta}$, $E[X] = \theta$).
+* **Outcome Analysis:** Simulating $N = 10,000$ iterations produces an empirical cumulative distribution, allowing executives to calculate **Value-at-Risk (VaR)** and the exact probability of project budget overruns: $P(\text{Cost} > \text{Budget})$.
 
 #### 2. Linear Programming (LP)
 Mathematical method to achieve the best outcome (such as maximum profit or lowest cost) in a mathematical model whose requirements are represented by linear relationships:

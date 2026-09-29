@@ -43,19 +43,28 @@ All infographics have been generated in high resolution with modern visual desig
 - **Coefficient of Variation:** $CV = \frac{s}{\bar{x}} \times 100\%$
 - **Tukey Outlier Fences:** $[Q_1 - 1.5 \times \text{IQR}, \quad Q_3 + 1.5 \times \text{IQR}]$
 
-### 2. Probability & Inference
+### 2. Probability Distributions (Continuous & Discrete)
+- **Normal (Gaussian):** $f(x) = \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{(x-\mu)^2}{2\sigma^2}} \quad | \quad E[X] = \mu, \quad \text{Var}(X) = \sigma^2$
+- **Continuous Uniform:** $f(x) = \frac{1}{b - a} \quad | \quad E[X] = \frac{a+b}{2}, \quad \text{Var}(X) = \frac{(b-a)^2}{12}$
+- **Exponential:** $f(x) = \frac{1}{\theta} e^{-x/\theta} = \lambda e^{-\lambda x} \quad | \quad E[X] = \theta = \frac{1}{\lambda}, \quad \text{Var}(X) = \theta^2 = \frac{1}{\lambda^2}$
+- **Gamma (Erlang):** $f(x) = \frac{1}{\Gamma(k)\theta^k} x^{k-1} e^{-x/\theta} \quad | \quad E[X] = k\theta, \quad \text{Var}(X) = k\theta^2$
+- **Beta:** $f(x) = \frac{x^{\alpha-1}(1-x)^{\beta-1}}{B(\alpha, \beta)} \quad | \quad E[X] = \frac{\alpha}{\alpha+\beta}, \quad \text{Var}(X) = \frac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta+1)}$
+- **Binomial:** $P(X=k) = \binom{n}{k} p^k (1-p)^{n-k} \quad | \quad E[X] = np, \quad \text{Var}(X) = np(1-p)$
+- **Poisson:** $P(X=k) = \frac{\lambda^k e^{-\lambda}}{k!} \quad | \quad E[X] = \lambda, \quad \text{Var}(X) = \lambda \quad (\text{Equidispersion})$
+
+### 3. Probability & Statistical Inference
 - **Bayes' Theorem:** $P(A|B) = \frac{P(B|A) \cdot P(A)}{P(B)}$
 - **Central Limit Theorem Standard Error:** $\sigma_{\bar{x}} = \frac{\sigma}{\sqrt{n}}$
 - **One-Sample Z-Statistic:** $Z = \frac{\bar{X} - \mu_0}{\sigma / \sqrt{n}}$
 - **Chi-Square Statistic:** $\chi^2 = \sum \frac{(O_i - E_i)^2}{E_i}$
 
-### 3. Machine Learning & Predictive Modeling
+### 4. Machine Learning & Predictive Modeling
 - **Entropy:** $H(S) = -\sum_{i=1}^c p_i \log_2(p_i)$
 - **Gini Impurity:** $Gini(S) = 1 - \sum_{i=1}^c p_i^2$
 - **Information Gain:** $IG(S, A) = H(S) - \sum_{v \in \text{Values}(A)} \frac{|S_v|}{|S|} H(S_v)$
 - **Coefficient of Determination ($R^2$):** $R^2 = 1 - \frac{\sum (y_i - \hat{y}_i)^2}{\sum (y_i - \bar{y})^2}$
 
-### 4. Classification Metrics
+### 5. Classification Metrics
 - **Accuracy:** $\frac{TP + TN}{TP + TN + FP + FN}$
 - **Precision:** $\frac{TP}{TP + FP}$
 - **Recall (Sensitivity):** $\frac{TP}{TP + FN}$
