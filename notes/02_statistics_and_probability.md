@@ -446,8 +446,19 @@ graph TD
   - $r = -1$: Perfect negative linear correlation.
 
 #### 2. Outlier Detection & Treatment
-- **Z-Score Method:** $Z = \frac{x - \mu}{\sigma}$. Observations with $|Z| > 3$ are typically flagged as outliers.
-- **Treatment Options:** Trimming (deletion), Winsorization (capping at 5th/95th percentiles), or logarithmic transformation to compress long tails.
+- **Outlier Detection Methods:**
+  - **Z-Score Method:** $Z = \frac{x - \mu}{\sigma}$. Observations with $|Z| > 3$ are flagged as outliers (assumes Gaussian distribution).
+  - **Tukey's IQR Fences:** $\text{Lower} = Q_1 - 1.5 \times \text{IQR}, \; \text{Upper} = Q_3 + 1.5 \times \text{IQR}$ (non-parametric, robust).
+- **Outlier Handling & Treatment Strategies:**
+  1. **Trimming (Deletion):** Drops all rows where values fall outside threshold boundaries.  
+     *Drawback:* Reduces sample size ($N$), discards real observations, and reduces statistical degrees of freedom.
+  2. **Winsorization (Capping / Clamping):** Replaces extreme values beyond chosen percentiles (typically 5th and 95th, or 1st and 99th) with the boundary percentile values themselves:
+     $$X_{\text{winsorized}} = \begin{cases} P_{\text{lower}} & \text{if } X < P_{\text{lower}} \\ X & \text{if } P_{\text{lower}} \le X \le P_{\text{upper}} \\ P_{\text{upper}} & \text{if } X > P_{\text{upper}} \end{cases}$$
+     *Key Benefit:* Retains **100% of sample size ($N$)**, while neutralizing the disproportionate leverage of extreme outliers on the sample mean ($\bar{X}$) and standard deviation ($s$).
+     *Python Syntax:*
+     - Pandas: `df['col'].clip(lower=df['col'].quantile(0.05), upper=df['col'].quantile(0.95))`
+     - SciPy: `from scipy.stats.mstats import winsorize; winsorized_arr = winsorize(data, limits=[0.05, 0.05])`
+  3. **Logarithmic Transformation:** $Y = \ln(X + 1)$ compresses long right-hand tails (e.g. incomes, house prices) into a symmetric Gaussian-like shape.
 
 ---
 
@@ -504,6 +515,20 @@ lower_fence = q1 - 1.5 * iqr
 upper_fence = q3 + 1.5 * iqr
 iqr_outliers = df_salaries[(df_salaries['Salary'] < lower_fence) | (df_salaries['Salary'] > upper_fence)]
 print(f"IQR Fences: [{lower_fence:.2f}, {upper_fence:.2f}] | Outliers detected: {len(iqr_outliers)}")
+
+# Outlier Treatment Comparison: Trimming vs. Winsorization
+# A. Trimming: Deletes rows outside fences (loses sample size)
+trimmed_df = df_salaries[(df_salaries['Salary'] >= lower_fence) & (df_salaries['Salary'] <= upper_fence)]
+
+# B. Winsorization: Clamps values to 5th & 95th percentiles (preserves 100% sample size)
+p05 = df_salaries['Salary'].quantile(0.05)
+p95 = df_salaries['Salary'].quantile(0.95)
+df_salaries['Winsorized_Salary'] = df_salaries['Salary'].clip(lower=p05, upper=p95)
+
+print(f"Raw Sample Mean        : ${df_salaries['Salary'].mean():.2f} (Distorted by CEO outliers, N={len(df_salaries)})")
+print(f"Trimmed Sample Mean    : ${trimmed_df['Salary'].mean():.2f} (Outliers dropped, N={len(trimmed_df)})")
+print(f"Winsorized Sample Mean : ${df_salaries['Winsorized_Salary'].mean():.2f} (Outliers capped at [${p05:.0f}, ${p95:.0f}], N={len(df_salaries)})")
+
 
 # ==========================================
 # 2. CENTRAL LIMIT THEOREM DEMONSTRATION
