@@ -13,6 +13,7 @@ Day7/
 ├── 01_statistical_measure/
 │   ├── 01_measures_of_central_tendency_updated.ipynb   # Mean, median, mode, geometric, harmonic, trimmed & Winsorized mean
 │   ├── 02_measures_of_dispersion_variability_spread.ipynb # Range, IQR, variance (s² vs σ²), std dev, MAD, and CV (%)
+│   ├── 03_measures_of_positions.ipynb                  # Percentiles, quartiles, deciles, percentile ranks, Z-scores, modified Z-scores
 │   └── 01_statistical_measures.ipynb                   # Integrated end-to-end laboratory notebook
 ├── 02_data_population/
 │   └── 02_data_population.ipynb                       # Multi-modal mixture models, sampling & anomaly injection
@@ -40,9 +41,16 @@ Day7/
     * Range ($Max - Min$), Interquartile Range ($IQR = Q_3 - Q_1$).
     * Sample Variance ($s^2$ with Bessel's correction $n-1$) vs. Population Variance ($\sigma^2$ with $N$).
     * Standard Deviation ($s = \sqrt{s^2}$) and Coefficient of Variation ($CV = \frac{s}{\bar{x}} \times 100\%$).
+  * **Measures of Position (Relative Standing):**
+    * Percentiles ($P_k$) & Empirical CDF (ECDF).
+    * Quartiles ($Q_1, Q_2, Q_3$), Deciles ($D_1 \dots D_9$), and Quintiles.
+    * Percentile Rank (relative standing of an arbitrary score: $\frac{\text{Count}(<x) + 0.5 \cdot \text{Count}(=x)}{n} \times 100\%$).
+    * Standard $Z$-Score ($z = \frac{x - \bar{x}}{s}$) vs. **Modified $Z$-Score** ($M_i = \frac{0.6745(x_i - \tilde{x})}{\text{MAD}}$) to prevent outlier masking.
+    * Cross-scale performance standardization.
   * **Outlier Detection:**
     * **Tukey's IQR Fences:** $[Q_1 - 1.5 \times IQR, \; Q_3 + 1.5 \times IQR]$.
     * **Z-Score Method:** Observations where $|Z| > 3.0$ standard deviations.
+    * **Modified Z-Score Method:** Observations where $|M_i| > 3.5$ based on Median & MAD.
 
 ---
 
@@ -87,3 +95,7 @@ Day7/
 | **Covariance** | $Cov(X, Y) = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{n - 1}$ | Sign (+/-) indicates direction of joint association. |
 | **Pearson Correlation ($r$)** | $r = \frac{Cov(X, Y)}{s_X s_Y}$ | Linear strength between $-1.0$ (inverse) and $+1.0$ (direct). |
 | **Spearman Rank ($\rho$)** | $\rho = 1 - \frac{6 \sum d_i^2}{n(n^2 - 1)}$ | Monotonic relationship (resistant to non-linear distortion). |
+| **Standard $Z$-Score** | $z = \frac{x - \bar{x}}{s}$ | Distance from mean in units of standard deviation ($\mu=0, \sigma=1$). |
+| **Modified $Z$-Score ($M_i$)** | $M_i = \frac{0.6745(x_i - \tilde{x})}{\text{MAD}}$ | Robust position indicator ($|M_i| > 3.5$ is outlier); immune to masking. |
+| **Percentile Rank** | $PR(x) = \frac{\text{Count}(<x) + 0.5 \cdot \text{Count}(=x)}{n} \times 100\%$ | Inverse percentile: percentage of cohort scoring at or below $x$. |
+

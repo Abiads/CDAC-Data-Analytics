@@ -58,6 +58,19 @@ flowchart TD
   $$\text{CV} = \left(\frac{s}{\bar{x}}\right) \times 100\%$$
   *Example:* A stock with price \$100 and standard deviation \$10 ($CV = 10\%$) is far more stable than a penny stock at \$1 with standard deviation \$0.50 ($CV = 50\%$).
 
+#### 3. Measures of Position (Relative Standing)
+- **Percentiles ($P_k$):** The value below which $k\%$ of observations fall (e.g. 99th percentile means outperforming 99% of peers).
+- **Quartiles ($Q_1, Q_2, Q_3$):** Slices sorted data into 4 quarters ($Q_1 = P_{25}$, $Q_2 = \text{Median} = P_{50}$, $Q_3 = P_{75}$).
+- **Deciles ($D_1 \dots D_9$):** Slices into 10 tenths ($D_1 = P_{10}, \dots, D_9 = P_{90}$). Widely used in banking risk modeling and credit scoring.
+- **Percentile Rank:** Inverse percentile; measures the percentage of the cohort that scored at or below a target value $x$:
+  $$\text{Percentile Rank}(x) = \left( \frac{\text{Count}(x_i < x) + 0.5 \times \text{Count}(x_i = x)}{n} \right) \times 100\%$$
+- **Standard Score ($Z$-Score):** Number of standard deviations away from the mean:
+  $$Z = \frac{x - \mu}{\sigma} \quad \text{or} \quad z = \frac{x - \bar{x}}{s}$$
+  *Rule of Thumb:* $|Z| > 3.0$ indicates an extreme outlier under approximate normality.
+- **Modified $Z$-Score ($M_i$ - Iglewicz & Hoaglin):** Robust position score using Median and MAD, completely immune to outlier masking/swamping:
+  $$M_i = \frac{0.6745 \cdot (x_i - \tilde{x})}{\text{MAD}}, \quad \text{where } \text{MAD} = \text{median}(|x_i - \tilde{x}|)$$
+  *Decision Boundary:* Observations with $|M_i| > 3.5$ are flagged as robust outliers.
+
 ---
 
 ### Sessions 6 & 7: Sampling & Probability Foundations
