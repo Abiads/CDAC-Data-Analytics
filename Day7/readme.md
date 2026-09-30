@@ -14,6 +14,7 @@ Day7/
 │   ├── 01_measures_of_central_tendency_updated.ipynb   # Mean, median, mode, geometric, harmonic, trimmed & Winsorized mean
 │   ├── 02_measures_of_dispersion_variability_spread.ipynb # Range, IQR, variance (s² vs σ²), std dev, MAD, and CV (%)
 │   ├── 03_measures_of_positions.ipynb                  # Percentiles, quartiles, deciles, percentile ranks, Z-scores, modified Z-scores
+│   ├── 04_measures_of_shape_and_distribution_geometry.ipynb # Skewness, Kurtosis, Moments, and Log/Power transformations
 │   └── 01_statistical_measures.ipynb                   # Integrated end-to-end laboratory notebook
 ├── 02_data_population/
 │   └── 02_data_population.ipynb                       # Multi-modal mixture models, sampling & anomaly injection
@@ -47,6 +48,13 @@ Day7/
     * Percentile Rank (relative standing of an arbitrary score: $\frac{\text{Count}(<x) + 0.5 \cdot \text{Count}(=x)}{n} \times 100\%$).
     * Standard $Z$-Score ($z = \frac{x - \bar{x}}{s}$) vs. **Modified $Z$-Score** ($M_i = \frac{0.6745(x_i - \tilde{x})}{\text{MAD}}$) to prevent outlier masking.
     * Cross-scale performance standardization.
+  * **Measures of Shape & Distribution Geometry:**
+    * The 4 Statistical Moments (Mean, Variance, Skewness, Kurtosis).
+    * **Skewness:** Symmetrical vs. Right-Skewed ($\text{Mean} > \text{Median}$) vs. Left-Skewed ($\text{Mean} < \text{Median}$).
+    * Pearson's median skewness ($Sk_2$), Fisher-Pearson 3rd moment ($g_1$), and Bowley's quartile skewness ($Sk_B$).
+    * **Kurtosis:** Tail-heaviness and outlier propensity: Mesokurtic (Normal), Leptokurtic (fat tails / Black Swan risk), Platykurtic (thin tails / flat peak).
+    * Full Kurtosis ($\beta_2$) vs. Excess Kurtosis ($\beta_2 - 3$).
+    * **Data Transformations:** Logarithmic ($y = \log(x)$) and Box-Cox power transforms for normalizing right-skewed features.
   * **Outlier Detection:**
     * **Tukey's IQR Fences:** $[Q_1 - 1.5 \times IQR, \; Q_3 + 1.5 \times IQR]$.
     * **Z-Score Method:** Observations where $|Z| > 3.0$ standard deviations.
@@ -98,4 +106,7 @@ Day7/
 | **Standard $Z$-Score** | $z = \frac{x - \bar{x}}{s}$ | Distance from mean in units of standard deviation ($\mu=0, \sigma=1$). |
 | **Modified $Z$-Score ($M_i$)** | $M_i = \frac{0.6745(x_i - \tilde{x})}{\text{MAD}}$ | Robust position indicator ($|M_i| > 3.5$ is outlier); immune to masking. |
 | **Percentile Rank** | $PR(x) = \frac{\text{Count}(<x) + 0.5 \cdot \text{Count}(=x)}{n} \times 100\%$ | Inverse percentile: percentage of cohort scoring at or below $x$. |
+| **Skewness ($g_1$)** | $g_1 = \frac{\frac{1}{n}\sum(x_i - \bar{x})^3}{s^3}$ | Asymmetry: $>0$ right-tail pull ($\bar{x} > \text{Med}$), $<0$ left-tail pull. |
+| **Excess Kurtosis ($\gamma_2$)** | $\gamma_2 = \frac{\frac{1}{n}\sum(x_i - \bar{x})^4}{s^4} - 3$ | Tail weight: $>0$ Leptokurtic (fat tails / Black Swans), $<0$ Platykurtic (thin). |
+
 

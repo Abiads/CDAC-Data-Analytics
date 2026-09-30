@@ -71,6 +71,20 @@ flowchart TD
   $$M_i = \frac{0.6745 \cdot (x_i - \tilde{x})}{\text{MAD}}, \quad \text{where } \text{MAD} = \text{median}(|x_i - \tilde{x}|)$$
   *Decision Boundary:* Observations with $|M_i| > 3.5$ are flagged as robust outliers.
 
+#### 4. Measures of Shape & Distribution Geometry
+- **The 4 Moments:** 1st = Mean (Location), 2nd = Variance (Scale), 3rd = Skewness (Asymmetry), 4th = Kurtosis (Tail heaviness / Outlier risk).
+- **Skewness ($g_1$):**
+  - *Symmetric ($g_1 \approx 0$):* $\text{Mean} \approx \text{Median} \approx \text{Mode}$.
+  - *Positive / Right-Skewed ($g_1 > 0$):* Tail stretches to positive values; $\text{Mean} > \text{Median} > \text{Mode}$ (e.g. Income, home prices).
+  - *Negative / Left-Skewed ($g_1 < 0$):* Tail stretches to negative values; $\text{Mean} < \text{Median} < \text{Mode}$ (e.g. Lifespan, easy exams).
+  - *Pearson's Median Skewness:* $Sk_2 = \frac{3(\bar{x} - \text{Median})}{s}$.
+  - *Bowley's Quartile Skewness:* $Sk_B = \frac{Q_3 + Q_1 - 2Q_2}{Q_3 - Q_1} \in [-1, +1]$.
+- **Kurtosis ($\beta_2$) & Excess Kurtosis ($\gamma_2 = \beta_2 - 3$):**
+  - *Mesokurtic ($\gamma_2 = 0$):* Gaussian bell curve baseline.
+  - *Leptokurtic ($\gamma_2 > 0$):* High central peak, **heavy fat tails**, higher risk of extreme outlier events ("Black Swan" events, financial crashes).
+  - *Platykurtic ($\gamma_2 < 0$):* Flat top, **light thin tails**, low outlier risk (e.g. Uniform distribution).
+- **Remedies for Skewness:** Applying Log transform ($y = \log(x)$), Square root ($y = \sqrt{x}$), or Box-Cox power transform to restore Gaussian properties for linear models.
+
 ---
 
 ### Sessions 6 & 7: Sampling & Probability Foundations
