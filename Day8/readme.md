@@ -65,6 +65,25 @@ Day8/
 
 ---
 
+### 3. `03_bivariate_relationships` — Directional Patterns & Non-Linear Limitations
+* **Location:** [`Day8/03_bivariate_relationships/01_covariance_and_pearson_correlation.ipynb`](03_bivariate_relationships/01_covariance_and_pearson_correlation.ipynb)
+* **Topics Covered:**
+  * **The Four-Quadrant Sign Geometry:**
+    * Centroid $(\bar{x}, \bar{y})$ divides scatter into 4 quadrants.
+    * Quadrant I $(+)(+) = (+)$ and Quadrant III $(-)(-) = (+)$ drive positive correlation ($r > 0$).
+    * Quadrant II $(-)(+) = (-)$ and Quadrant IV $(+)(-) = (-)$ drive negative correlation ($r < 0$).
+  * **The Symmetrical Cancellation Trap ($Y = X^2$):**
+    * Mathematical proof: $\operatorname{Cov}(X, X^2) = \mathbb{E}[X^3] - \mathbb{E}[X]\mathbb{E}[X^2] = 0$ for distributions symmetric around zero.
+    * $r = 0.0$ despite $100\%$ deterministic functional dependence.
+  * **The Monotonic Attenuation Trap ($Y = e^X$):**
+    * Non-linear curvature penalizes Pearson's straight-line metric ($r \approx 0.89$), while Spearman's rank agreement remains near-perfect ($\rho \approx 0.98 - 1.00$).
+  * **Periodic & Closed Patterns ($Y = \sin(X)$, Circles):**
+    * Symmetrical balance causes Pearson $r \to 0$ despite rigid geometric laws.
+  * **Sensitivity to High-Leverage Outliers:**
+    * Visualizing how single points distort linear trends.
+
+---
+
 ## ⚡ Mathematical Reference Card
 
 | Measure / Metric | Mathematical Expression | Key Interpretation / Use Case |
