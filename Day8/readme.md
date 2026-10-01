@@ -36,6 +36,16 @@ Day8/
 ### 2. `03_bivariate_relationship` — Covariance, Pearson vs. Spearman & Non-Linear Traps
 * **Location:** [`Day8/03_bivariate_relationship/03_bivariate_relationship.ipynb`](03_bivariate_relationship/03_bivariate_relationship.ipynb)
 * **Topics Covered:**
+  * **Step-by-Step Hand Numerical Example:**
+    * Sample $n=5$ students: Study Hours $X = [2, 4, 6, 8, 10]$, Exam Scores $Y = [50, 65, 60, 80, 95]$.
+    * Means: $\bar{X} = 6.0$, $\bar{Y} = 70.0$.
+    * Deviations: $\sum (X - \bar{X})^2 = 40$ ($s_X = 3.1623$), $\sum (Y - \bar{Y})^2 = 1250$ ($s_Y = 17.6777$).
+    * Cross-Product: $\sum (X - \bar{X})(Y - \bar{Y}) = 210$.
+    * Covariance: $Cov(X, Y) = \frac{210}{4} = 52.5 \text{ (hours} \cdot \text{marks)}$.
+    * Pearson $r$: $r = \frac{52.5}{3.1623 \times 17.6777} \approx 0.9391$ ($R^2 = 88.2\%$).
+    * Spearman $\rho$: Ranks difference $\sum d_i^2 = 2 \implies \rho = 1 - \frac{6(2)}{5(24)} = 0.9000$.
+    * OLS Trendline: $\beta_1 = \frac{52.5}{10} = 5.25$, $\beta_0 = 70 - 5.25(6) = 38.5 \implies \hat{Y} = 38.5 + 5.25 X$.
+    * Prediction: For $X = 7$ hours, $\hat{Y} = 38.5 + 5.25(7) = 75.25$ marks.
   * **Covariance ($Cov(X, Y)$):**
     $$Cov(X, Y) = \frac{\sum (X_i - \bar{X})(Y_i - \bar{Y})}{n - 1}$$
     Measures joint directional linear variability (scale-dependent).
