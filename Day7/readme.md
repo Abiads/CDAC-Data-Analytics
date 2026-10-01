@@ -1,4 +1,4 @@
-# Day 7: Statistical Measures, Data Population & Bivariate Relationships
+# Day 7: Statistical Measures (Complete Suite)
 > **Programme:** C-DAC PGCP-AI (Post Graduate Certificate Programme in AI)  
 > **Course:** Data Analytics  
 > **Author:** abs6187 (`23f2000876@ds.study.iitm.ac.in`)  
@@ -14,16 +14,18 @@ Day7/
 │   ├── 01_measures_of_central_tendency_updated.ipynb   # Mean, median, mode, geometric, harmonic, trimmed & Winsorized mean
 │   ├── 02_measures_of_dispersion_variability_spread.ipynb # Range, IQR, variance (s² vs σ²), std dev, MAD, and CV (%)
 │   ├── 03_measures_of_positions.ipynb                  # Percentiles, quartiles, deciles, percentile ranks, Z-scores, modified Z-scores
-│   ├── 04_measures_of_shape_and_distribution_geometry.ipynb # Skewness, Kurtosis, Moments, and Log/Power transformations
+│   ├── 04_measures_of_shape_and_distribution_geometry.ipynb # Skewness, Kurtosis (3 types), Moments, and Log/Power transformations
 │   └── 01_statistical_measures.ipynb                   # Integrated end-to-end laboratory notebook
-├── 02_data_population/
-│   └── 02_data_population.ipynb                       # Multi-modal mixture models, sampling & anomaly injection
-├── 03_bivariate_relationship/
-│   └── 03_bivariate_relationship.ipynb                 # Covariance, Pearson vs Spearman, and the r≈0 non-linear trap
+├── 02_statistical_measure/
+│   ├── 01_measures_of_central_tendency_updated.ipynb   # Upstream harmonized central tendency notebook
+│   ├── 02_measures_of_dispersion_variability.ipynb     # Upstream harmonized dispersion notebook
+│   ├── 03_measures_of_position.ipynb                   # Upstream harmonized position notebook
+│   ├── 04_measures_of_shape_and_distribution_geometry.ipynb # Upstream harmonized shape & kurtosis notebook
+│   └── readme.md                                       # Comprehensive mathematical theory guide
 └── readme.md                                           # Day 7 Master Reference Guide
 ```
 
-*(Note: Companion files also available under `Day6/02_statistical_measure/`)*
+*(Note: Data Population and Bivariate Relationships have been migrated to [`Day8/`](../Day8/readme.md).)*
 
 ---
 
@@ -59,37 +61,6 @@ Day7/
     * **Tukey's IQR Fences:** $[Q_1 - 1.5 \times IQR, \; Q_3 + 1.5 \times IQR]$.
     * **Z-Score Method:** Observations where $|Z| > 3.0$ standard deviations.
     * **Modified Z-Score Method:** Observations where $|M_i| > 3.5$ based on Median & MAD.
-
----
-
-### 2. `02_data_population` — Synthetic Population Sampling & Mixture Models
-* **Location:** [`Day7/02_data_population/02_data_population.ipynb`](02_data_population/02_data_population.ipynb)
-* **Topics Covered:**
-  * **Modern NumPy Generator API:** `rng = np.random.default_rng(seed=42)`.
-  * **Multi-Distribution Sampling:** Normal, Continuous Uniform, Exponential, Poisson, and Binomial.
-  * **Mixture Models (Multi-Modal Populations):**
-    * Simulating heterogeneous customer populations (e.g. 70% budget shoppers $\mathcal{N}(35, 8)$ + 30% luxury buyers $\mathcal{N}(120, 20)$).
-  * **Anomaly Injection:** Introducing controlled 1% cyber fraud chargebacks ($400 - $600).
-  * **Diagnostic Assessment:** Visualizing bimodal shapes via Histograms and Normal Quantile-Quantile (Q-Q) plots.
-
----
-
-### 3. `03_bivariate_relationship` — Covariance, Pearson vs. Spearman & Non-Linear Traps
-* **Location:** [`Day7/03_bivariate_relationship/03_bivariate_relationship.ipynb`](03_bivariate_relationship/03_bivariate_relationship.ipynb)
-* **Topics Covered:**
-  * **Covariance ($Cov(X, Y)$):**
-    $$Cov(X, Y) = \frac{\sum (X_i - \bar{X})(Y_i - \bar{Y})}{n - 1}$$
-    Measures joint directional linear variability (scale-dependent).
-  * **Pearson Correlation Coefficient ($r$):**
-    $$r = \frac{Cov(X, Y)}{s_X \cdot s_Y} \in [-1.0, +1.0]$$
-    Scale-independent, standardized linear correlation.
-  * **Spearman Rank Correlation ($\rho$):**
-    Non-parametric correlation evaluated on ranks; captures monotonic non-linear relationships ($Y = e^X$).
-  * **The Critical $r \approx 0$ Exam Trap:**
-    * Zero correlation ($r = 0$) only indicates lack of **linear** association.
-    * Variables can have a perfect deterministic quadratic relationship ($Y = X^2$ centered at 0) where $r \approx 0.0$!
-  * **Bivariate OLS Linear Regression:**
-    $$\text{Slope } \beta_1 = \frac{Cov(X, Y)}{Var(X)} = r \frac{s_Y}{s_X}, \quad \text{Intercept } \beta_0 = \bar{Y} - \beta_1 \bar{X}, \quad R^2 = r^2$$
 
 ---
 
