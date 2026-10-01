@@ -16,8 +16,9 @@ Day8/
 ├── 03_bivariate_relationship/
 │   └── 03_bivariate_relationship.ipynb     # Comprehensive step-by-step numerical example, Spearman rank, and OLS regression
 ├── 03_bivariate_relationships/
-│   ├── 01_covariance_and_pearson_correlation.ipynb # Upstream covariance & Pearson correlation introduction with quadratic trap
-│   └── 02_spearman_rank_and_kendall_tau.ipynb      # Non-parametric rank correlation, concordant pairs, and outlier stress test
+│   ├── 01_covariance_and_pearson_correlation.ipynb # Upstream covariance & Pearson correlation introduction with failure scenarios
+│   ├── 02_spearman_and_kendall_rank_correlations.ipynb # Upstream Spearman & Kendall rank correlations introduction
+│   └── 02_spearman_rank_and_kendall_tau.ipynb      # Extended laboratory with concordance ladder, hand audit, and Tau-b
 └── readme.md                               # Day 8 Master Reference Guide
 ```
 
@@ -79,7 +80,7 @@ Day8/
 ---
 
 ### 4. `03_bivariate_relationships` — Spearman's Rank & Kendall's Tau
-* **Location:** [`Day8/03_bivariate_relationships/02_spearman_rank_and_kendall_tau.ipynb`](03_bivariate_relationships/02_spearman_rank_and_kendall_tau.ipynb)
+* **Location:** [`Day8/03_bivariate_relationships/02_spearman_and_kendall_rank_correlations.ipynb`](03_bivariate_relationships/02_spearman_and_kendall_rank_correlations.ipynb) (Companion: [`02_spearman_rank_and_kendall_tau.ipynb`](03_bivariate_relationships/02_spearman_rank_and_kendall_tau.ipynb))
 * **Topics Covered:**
   * **Spearman's Rank Correlation ($\rho$):**
     $$\rho = 1 - \frac{6 \sum d_i^2}{n(n^2 - 1)}$$
