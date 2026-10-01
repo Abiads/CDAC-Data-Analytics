@@ -66,22 +66,15 @@ Day8/
 
 ---
 
-### 3. `03_bivariate_relationships` — Directional Patterns & Non-Linear Limitations
+### 3. `03_bivariate_relationships` — Directional Patterns & Where Each Metric Fails
 * **Location:** [`Day8/03_bivariate_relationships/01_covariance_and_pearson_correlation.ipynb`](03_bivariate_relationships/01_covariance_and_pearson_correlation.ipynb)
-* **Topics Covered:**
-  * **The Four-Quadrant Sign Geometry:**
-    * Centroid $(\bar{x}, \bar{y})$ divides scatter into 4 quadrants.
-    * Quadrant I $(+)(+) = (+)$ and Quadrant III $(-)(-) = (+)$ drive positive correlation ($r > 0$).
-    * Quadrant II $(-)(+) = (-)$ and Quadrant IV $(+)(-) = (-)$ drive negative correlation ($r < 0$).
-  * **The Symmetrical Cancellation Trap ($Y = X^2$):**
-    * Mathematical proof: $\operatorname{Cov}(X, X^2) = \mathbb{E}[X^3] - \mathbb{E}[X]\mathbb{E}[X^2] = 0$ for distributions symmetric around zero.
-    * $r = 0.0$ despite $100\%$ deterministic functional dependence.
-  * **The Monotonic Attenuation Trap ($Y = e^X$):**
-    * Non-linear curvature penalizes Pearson's straight-line metric ($r \approx 0.89$), while Spearman's rank agreement remains near-perfect ($\rho \approx 0.98 - 1.00$).
-  * **Periodic & Closed Patterns ($Y = \sin(X)$, Circles):**
-    * Symmetrical balance causes Pearson $r \to 0$ despite rigid geometric laws.
-  * **Sensitivity to High-Leverage Outliers:**
-    * Visualizing how single points distort linear trends.
+* **Straightforward Failure Modes & Visualizations:**
+  * **Failure Case 1 (Covariance Fails — Scale Explosion):** Same points in Meters vs Millimeters causes Covariance to jump 1,000x ($1.03 \to 1031.27$), while Pearson $r = 0.988$ remains invariant.
+  * **Failure Case 2 (Pearson Fails — Symmetrical Parabola $Y = X^2$):** $100\%$ deterministic functional relationship produces a flat regression line with $r = 0.00$.
+  * **Failure Case 3 (Pearson Penalized, Spearman Wins — Exponential $Y = e^X$):** Straight-line residuals penalize Pearson ($r = 0.896$), while Spearman achieves a perfect score ($\rho = 1.000$) due to monotonic rank ordering.
+  * **Failure Case 4 (Pearson Collapses, Spearman Holds — 1 Rogue Outlier):** Just one extreme outlier at $(48, -35)$ collapses Pearson from $0.993 \to 0.694$, while Spearman robustly preserves signal at $\rho = 0.864$.
+  * **Failure Case 5 (Both Fail — Closed Circle Pattern):** Rigid non-monotonic geometry where both $r \approx 0$ and $\rho \approx 0$, demonstrating where Distance Correlation or Mutual Information must be used.
+  * **Summary Scorecard:** Color-coded decision table mapping every bivariate scenario to its recommended metric.
 
 ---
 
