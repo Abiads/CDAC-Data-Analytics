@@ -11,9 +11,12 @@
 ```
 Day8/
 ├── 01_data_population/
+│   ├── .gitkeep                           # Upstream repository anchor
 │   └── 01_data_population.ipynb           # Synthetic population sampling, mixture models & anomaly injection
 ├── 03_bivariate_relationship/
-│   └── 03_bivariate_relationship.ipynb     # Covariance, Pearson vs. Spearman, and the r≈0 non-linear trap
+│   └── 03_bivariate_relationship.ipynb     # Comprehensive step-by-step numerical example, Spearman rank, and OLS regression
+├── 03_bivariate_relationships/
+│   └── 01_covariance_and_pearson_correlation.ipynb # Upstream covariance & Pearson correlation introduction with quadratic trap
 └── readme.md                               # Day 8 Master Reference Guide
 ```
 
