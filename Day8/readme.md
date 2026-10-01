@@ -16,7 +16,8 @@ Day8/
 ├── 03_bivariate_relationship/
 │   └── 03_bivariate_relationship.ipynb     # Comprehensive step-by-step numerical example, Spearman rank, and OLS regression
 ├── 03_bivariate_relationships/
-│   └── 01_covariance_and_pearson_correlation.ipynb # Upstream covariance & Pearson correlation introduction with quadratic trap
+│   ├── 01_covariance_and_pearson_correlation.ipynb # Upstream covariance & Pearson correlation introduction with quadratic trap
+│   └── 02_spearman_rank_and_kendall_tau.ipynb      # Non-parametric rank correlation, concordant pairs, and outlier stress test
 └── readme.md                               # Day 8 Master Reference Guide
 ```
 
@@ -84,6 +85,27 @@ Day8/
 
 ---
 
+### 4. `03_bivariate_relationships` — Spearman's Rank & Kendall's Tau
+* **Location:** [`Day8/03_bivariate_relationships/02_spearman_rank_and_kendall_tau.ipynb`](03_bivariate_relationships/02_spearman_rank_and_kendall_tau.ipynb)
+* **Topics Covered:**
+  * **Spearman's Rank Correlation ($\rho$):**
+    $$\rho = 1 - \frac{6 \sum d_i^2}{n(n^2 - 1)}$$
+    Measures monotonic association by calculating Pearson correlation on ordinal ranks.
+  * **Kendall's Rank Correlation ($\tau$):**
+    $$\tau = \frac{C - D}{\frac{1}{2} n (n - 1)} = P(\text{concordance}) - P(\text{discordance})$$
+    Evaluates concordance vs. discordance across all $\binom{n}{2}$ distinct pairs.
+  * **Step-by-Step Hand Numerical Example:**
+    * Sample $n = 5$ students: Aptitude $X = [12, 15, 18, 22, 25]$, ML Score $Y = [45, 60, 55, 80, 90]$.
+    * Ranks: $R(X) = [1, 2, 3, 4, 5]$, $R(Y) = [1, 3, 2, 4, 5]$.
+    * Rank differences: $\sum d_i^2 = 2 \implies \rho = 1 - \frac{12}{120} = \mathbf{+0.9000}$.
+    * Pairwise enumeration: 9 Concordant, 1 Discordant (Student B vs C) $\implies \tau = \frac{9 - 1}{10} = \mathbf{+0.8000}$.
+  * **Concordance Ladder Chart:** Parallel coordinates visualization mapping crossing discordant lines.
+  * **Outlier Leverage Stress Test:** Injected leverage outlier drops Pearson from $0.99 \to 0.70$, while Spearman holds at $0.86$ and Kendall at $0.83$.
+  * **Handling Ties (Kendall's Tau-b):**
+    $$\tau_b = \frac{C - D}{\sqrt{(C + D + T_X)(C + D + T_Y)}}$$
+
+---
+
 ## ⚡ Mathematical Reference Card
 
 | Measure / Metric | Mathematical Expression | Key Interpretation / Use Case |
@@ -91,6 +113,7 @@ Day8/
 | **Covariance** | $Cov(X, Y) = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{n - 1}$ | Sign (+/-) indicates direction of joint association; magnitude is scale-dependent. |
 | **Pearson Correlation ($r$)** | $r = \frac{Cov(X, Y)}{s_X s_Y}$ | Linear strength between $-1.0$ (inverse) and $+1.0$ (direct). |
 | **Spearman Rank ($\rho$)** | $\rho = 1 - \frac{6 \sum d_i^2}{n(n^2 - 1)}$ | Monotonic relationship (resistant to non-linear distortion and extreme outliers). |
+| **Kendall's Tau ($\tau$)** | $\tau = \frac{C - D}{\frac{1}{2} n(n - 1)}$ | Concordance probability; best for small sample sizes ($n < 30$) and heavy ties. |
 | **OLS Slope ($\beta_1$)** | $\beta_1 = \frac{Cov(X, Y)}{Var(X)} = r \frac{s_Y}{s_X}$ | Rate of change in $Y$ per unit increase in $X$. |
 | **OLS Intercept ($\beta_0$)** | $\beta_0 = \bar{Y} - \beta_1 \bar{X}$ | Expected value of $Y$ when $X = 0$. |
 | **Coefficient of Determination** | $R^2 = r^2 \in [0, 1]$ | Proportion of variance in $Y$ explained by linear relationship with $X$. |
