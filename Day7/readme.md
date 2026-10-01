@@ -22,10 +22,12 @@ Day7/
 │   ├── 03_measures_of_position.ipynb                   # Upstream harmonized position notebook
 │   ├── 04_measures_of_shape_and_distribution_geometry.ipynb # Upstream harmonized shape & kurtosis notebook
 │   └── readme.md                                       # Comprehensive mathematical theory guide
+├── 03_bivariate_relationships/
+│   └── 01_covariance_and_pearson_correlation.ipynb     # Upstream initial covariance & Pearson correlation introduction
 └── readme.md                                           # Day 7 Master Reference Guide
 ```
 
-*(Note: Data Population and Bivariate Relationships have been migrated to [`Day8/`](../Day8/readme.md).)*
+*(Note: Extended bivariate relationship modeling, Spearman rank correlation, and Data Population have been expanded into [`Day8/`](../Day8/readme.md).)*
 
 ---
 
