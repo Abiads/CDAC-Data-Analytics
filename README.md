@@ -21,6 +21,9 @@ This repository contains the complete syllabus, structured module study notes, v
 ├── README.md                                  # Repository landing page and index
 ├── Day1/                                      # Advanced Python Foundations (Decorators, ABC, Generators)
 ├── Day2/                                      # NumPy ndarray Architecture, Vectorized Math & Pandas
+├── Day7/                                      # Statistical Measures Suite (Central Tendency, Dispersion, Position, Shape)
+├── Day8/                                      # Data Population & Bivariate Relationships (Covariance, Pearson, Spearman, Kendall)
+├── Day9/                                      # Advanced Data Wrangling & High-Performance Pandas (MultiIndex, Regex, Pipeline, Memory, Query)
 ├── cheat_sheets/                              # Comprehensive data science & Python PDF cheat sheets
 └── notes/                                     # Comprehensive study guides and code labs
     ├── 00_rote_learning_and_mnemonics.md     # Exam tricks, mnemonics, and flashcards
