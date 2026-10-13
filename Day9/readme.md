@@ -1,7 +1,7 @@
 # Day 9: Advanced Data Wrangling & High-Performance Pandas
 > **Programme:** C-DAC PGCP-AI (Post Graduate Certificate Programme in AI)  
 > **Course:** Data Analytics  
-> **Author:** abs6187 (`23f2000876@ds.study.iitm.ac.in`)  
+> **Author:** abs6187 (`23f2000876@ds.study.iitm.ac.in`) | **Instructor Notes:** Mohamed Ali (`alilog`)  
 > **Date:** October 13, 2026  
 
 ---
@@ -10,25 +10,106 @@
 
 ```
 Day9/
+├── Analytics/                             # Official upstream classroom notebooks (Ali Sir)
+│   ├── 00_python_basics/
+│   │   ├── 01_pandas_indexing.ipynb       # Series creation, indexing, string series & dicts
+│   │   └── 02_df.ipynb                    # DataFrame construction, info, describe & reshape
+│   └── O1_data_wrangling/
+│       └── 01_indexing_vectorize.ipynb    # MultiIndex, regex, transform pipeline, downcasting, query
 ├── data_wrangling/
 │   ├── .gitkeep                           # Repository anchor
-│   └── 01_data_wrangling.ipynb            # Master executed laboratory notebook (5 comprehensive modules)
-└── readme.md                              # Day 9 Master Reference Guide & Theoretical Manual
+│   └── 01_data_wrangling.ipynb            # Master executed laboratory notebook (interactive help + 5 modules)
+├── readme.md                              # Unified Day 9 Master Guide + Ali Sir's 6-Phase Curriculum Blueprint
+├── readme_detail.md                       # Ali Sir's Granular 6-Phase Analytical Workflows
+└── test.py                                # Test script placeholder
 ```
 
 ---
 
 ## 📖 Table of Contents
-0. [💡 Jupyter Auto-Suggestion & Inline Help Shortcuts](#0--jupyter-auto-suggestion--inline-help-shortcuts)
-1. [Module 1: MultiIndex DataFrame and Hierarchical Slicing (North Region Sales)](#1-multiindex-dataframe-and-hierarchical-slicing-north-region-sales)
-2. [Module 2: Vectorised Strings and Regular Expressions](#2-vectorised-strings-and-regular-expressions)
-3. [Module 3: Transform Pipeline (HR & IT Salary)](#3-transform-pipeline-hr--it-salary-analysis)
-4. [Module 4: Memory Optimisation and Data Type Downcasting](#4-memory-optimisation-and-data-type-downcasting)
-5. [Module 5: High-Performance Query (`df.query` & `pd.eval`)](#5-high-performance-query-dfquery--pdeval)
-6. [Summary & Architectural Scorecard](#6-summary--architectural-scorecard)
-7. [Critical Interview Traps & Viva Hacks](#7--critical-interview-traps--viva-hacks-punchy--direct)
+- [🏛️ Enterprise Analytics Curriculum Blueprint (Phases 1 – 6 Notes)](#-enterprise-analytics-curriculum-blueprint-phases-1--6-notes)
+  - [Phase 1: Ingestion & Foundation (Wrangling & SQL)](#phase-1-ingestion--foundation-wrangling--sql)
+  - [Phase 2: Auditing & Profiling (EDA)](#phase-2-auditing--profiling-eda)
+  - [Phase 3: Feature Engineering & Economic Alignment (KPIs)](#phase-3-feature-engineering--economic-alignment-kpis)
+  - [Phase 4: Communication & Storytelling (Visualization)](#phase-4-communication--storytelling-visualization)
+  - [Phase 5: Advanced Intelligence (Unsupervised & Predictive Modeling)](#phase-5-advanced-intelligence-unsupervised--predictive-modeling)
+  - [Phase 6: Validation & Causal Impact (Experimentation)](#phase-6-validation--causal-impact-experimentation)
+- [🛠️ Day 9 Practical Modules & High-Performance Pandas](#️-day-9-practical-modules--high-performance-pandas)
+  - [0. 💡 Jupyter Auto-Suggestion & Inline Help Shortcuts](#0--jupyter-auto-suggestion--inline-help-shortcuts)
+  - [1. Module 1: MultiIndex DataFrame and Hierarchical Slicing (North Region Sales)](#1-multiindex-dataframe-and-hierarchical-slicing-north-region-sales)
+  - [2. Module 2: Vectorised Strings and Regular Expressions](#2-vectorised-strings-and-regular-expressions)
+  - [3. Module 3: Transform Pipeline (HR & IT Salary)](#3-transform-pipeline-hr--it-salary-analysis)
+  - [4. Module 4: Memory Optimisation and Data Type Downcasting](#4-memory-optimisation-and-data-type-downcasting)
+  - [5. Module 5: High-Performance Query (`df.query` & `pd.eval`)](#5-high-performance-query-dfquery--pdeval)
+  - [6. Summary & Architectural Scorecard](#6-summary--architectural-scorecard)
+  - [7. ⚠️ Critical Interview Traps & Viva Hacks (Punchy & Direct)](#7--critical-interview-traps--viva-hacks-punchy--direct)
 
 ---
+
+## 🏛️ Enterprise Analytics Curriculum Blueprint (Phases 1 – 6 Notes)
+> **Reference Document:** For deep granular step-by-step workflows, see [`Day9/readme_detail.md`](readme_detail.md).
+
+### Phase 1: Ingestion & Foundation (Wrangling & SQL)
+* **Core Nomenclature:** Data Ingestion, Relational Extraction, Schema Normalization, Memory Downcasting, Hierarchical Slicing, Vectorized Parsing.
+* **Granular Scenarios Handled:**
+  * **Memory Optimization:** Ingesting multi-gigabyte transactional logs using streaming chunk sizes (`chunksize=N`) and downcasting data types (e.g., converting 64-bit integers to 8-bit integers to reduce RAM footprints).
+  * **Data Sanitization:** Standardizing string columns via `snake_casing`, stripping whitespace, and parsing ISO-8601 date formats.
+  * **Relational Aggregation:** Executing conditional metrics via SQL `CASE WHEN` clauses, partition-based row ranking (`ROW_NUMBER() OVER`), and multi-level hierarchy traversal using recursive Common Table Expressions (CTEs).
+  * **Multidimensional Panel Wrangling:** Setting multi-index axes (`set_index([L1, L2])`) to execute hierarchical slicing and melting wide-format tables into long-format structures.
+
+---
+
+### Phase 2: Auditing & Profiling (EDA)
+* **Core Nomenclature:** Automated Profiling, Schema Enforcement, Missing Data Taxonomy, Collinearity Diagnostics, Non-Linear Association, Confounding Identification.
+* **Granular Scenarios Handled:**
+  * **Automated Data Quality Audits:** Generating instant HTML profiling reports (via YData-Profiling or Sweetviz) to inspect missingness percentages, duplicate entity keys, and memory allocations.
+  * **Missing Data Classification:** Systematically diagnosing whether missing values follow MCAR (Missing Completely at Random), MAR (Missing at Random), or MNAR (Missing Not at Random) patterns.
+  * **Multicollinearity Isolation:** Calculating Variance Inflation Factors (VIF) to detect and eliminate redundant predictor features that inflate regression coefficient variances.
+  * **Confounding & Bias Detection:** Identifying Simpson’s Paradox where aggregate trends reverse or distort when data is segmented across localized cohorts.
+
+---
+
+### Phase 3: Feature Engineering & Economic Alignment (KPIs)
+* **Core Nomenclature:** Categorical Encoding, Bayesian Smoothing, Power Transformation, Cyclical Feature Extraction, Unit Economics, Cohort Retention.
+* **Granular Scenarios Handled:**
+  * **High-Cardinality Handling:** Applying smoothed Target (Mean) Encoding to high-cardinality strings (like postal codes) by blending category means with global averages using smoothing parameters.
+  * **Distribution Normalization:** Mitigating extreme skewness in financial distributions using Log, Box-Cox, and Yeo-Johnson power transformations.
+  * **Temporal Boundary Resolution:** Applying Sine and Cosine cyclical transformations to hours of the day or months of the year to ensure continuous circular distance metrics without boundary jumps.
+  * **Monetization & Retention Modeling:** Calculating Customer Acquisition Cost (CAC), historical versus predictive Customer Lifetime Value (LTV), logo/revenue churn, and period-over-period cohort retention matrices.
+
+---
+
+### Phase 4: Communication & Storytelling (Visualization)
+* **Core Nomenclature:** Multi-Plot Faceting, Accessibility Standardization, Responsive GridSpec Layouts, Spatial Choropleth Aggregation, The Pyramid Principle.
+* **Granular Scenarios Handled:**
+  * **Multi-Variable Comparison:** Building complex panel visualizations using Seaborn `FacetGrid` and `PairGrid` structures to contrast distributions across segments.
+  * **Interactive Drill-Down Exploration:** Designing responsive Plotly dashboards with hover tooltips, sunburst hierarchies, and financial waterfall charts for stakeholders.
+  * **Geospatial Density Mapping:** Plotting geographic coordinate scatter points and aggregating metrics across regional state polygons using choropleth maps.
+  * **Cognitive Load Reduction:** Structuring executive presentations using the Pyramid Principle (conclusion first, supporting evidence second) to bridge technical metrics with business outcomes.
+
+---
+
+### Phase 5: Advanced Intelligence (Unsupervised & Predictive Modeling)
+* **Core Nomenclature:** Inertia Minimization, Silhouette Optimization, Orthogonal Projection, Additive Explanations, Stratified K-Fold Cross-Validation.
+* **Granular Scenarios Handled:**
+  * **Unsupervised Behavioral Segmentation:** Grouping customers into actionable RFM (Recency, Frequency, Monetary) tiers using K-Means inertia minimization, elbow plots, and DBSCAN density-based noise handling.
+  * **Dimensionality Compression:** Projecting correlated features onto orthogonal axes via Principal Component Analysis (PCA) to capture maximum variance and reduce visual clutter.
+  * **Supervised Predictive Classification & Forecasting:** Training logistic regressions and gradient models while evaluating performance via Precision-Recall curves, F1-scores, and MAPE metrics.
+  * **Black-Box Interpretability:** Decomposing complex model predictions into cooperative game theory Shapley values (SHAP) to explain individual predictions to regulatory auditors.
+
+---
+
+### Phase 6: Validation & Causal Impact (Experimentation)
+* **Core Nomenclature:** Power Analysis, Minimum Detectable Effect (MDE), Family-Wise Error Rate (FWER), Multi-Armed Bandit Allocation, Difference-in-Differences (DiD).
+* **Granular Scenarios Handled:**
+  * **Rigorous Experiment Sizing:** Calculating statistical power, significance thresholds ($\alpha$), and sample size durations to prevent underpowered tests.
+  * **Multi-Testing Correction:** Applying Bonferroni and False Discovery Rate (FDR) corrections when evaluating multiple secondary guardrail metrics simultaneously.
+  * **Adaptive Traffic Routing:** Deploying Multi-Armed Bandit algorithms (such as Thompson Sampling) to dynamically route user traffic toward winning variant arms in real time.
+  * **Quasi-Experimental Causal Inference:** Estimating true causal impact in observational settings using Propensity Score Matching (PSM) and Difference-in-Differences (DiD) estimators to eliminate omitted variable bias.
+
+---
+
+## 🛠️ Day 9 Practical Modules & High-Performance Pandas
 
 ## 0. 💡 Jupyter Auto-Suggestion & Inline Help Shortcuts
 * **Laboratory Location:** [`Day9/data_wrangling/01_data_wrangling.ipynb`](data_wrangling/01_data_wrangling.ipynb#0--jupyter-auto-suggestion--inline-help-shortcuts)
@@ -97,205 +178,156 @@ The `.xs()` method provides an explicit, highly readable API to slice across any
 * **Row Cross-Section:** `df_sales.xs(key='Q2', level='Quarter', drop_level=False)`
 * **Column Cross-Section:** `df_sales.xs(key='Operations', axis=1, level='Metric_Type')`
 
-### 1.5 Reshaping & Level Aggregations
-* **`unstack(level)`:** Pivots an index level into column headers (tall $\to$ wide).
-* **`stack(level)`:** Pivots column levels down into index rows (wide $\to$ tall).
-* **`swaplevel(i, j)`:** Swaps the hierarchical order of two levels.
-* **`groupby(level=...)`:** Aggregates across levels comparing North sales against other regions:
-  ```python
-  regional_annual_sales = df_sales.groupby(level=['Region', 'Year'])['Financial', 'Sales_Revenue_Lakhs'].sum()
-  ```
-
 ---
 
 ## 2. Vectorised Strings and Regular Expressions
 * **Laboratory Location:** [`Day9/data_wrangling/01_data_wrangling.ipynb`](data_wrangling/01_data_wrangling.ipynb#2-vectorised-strings-and-regular-expressions)
 
-### 2.1 The `.str` Accessor vs. Python Loops
-Using `.apply(lambda x: re.search(...))` in Python introduces three critical bottlenecks:
-1. **Interpreter Call Overhead:** Context-switching for each scalar row.
-2. **Crash on Missing Data:** `None` or `np.nan` triggers `TypeError: expected string or bytes-like object`.
-3. **Object Boxing:** Strings are repeatedly boxed and unboxed as Python heap objects.
+### 2.1 The Vectorization Performance Advantage
+Standard Python string manipulation on lists or via `.apply(lambda x: ...)` forces the Python virtual machine to iterate through every row as an individual object pointer, incurring severe function call overhead:
 
-The compiled C-backed `.str` accessor executes in vectorized memory, handles `NaN` values automatically by propagating them, and integrates natively with regex engines.
+$$\text{Loop Overhead} = \mathcal{O}(N \times \text{Interpreter Bytecode Frame Cost})$$
 
-### 2.2 Core String Transformations
-* **Whitespace & Case:** `.str.strip()`, `.str.lower()`, `.str.title()`
-* **Delimiter Splitting with `expand=True`:**
-  ```python
-  # Splits full name into separate DataFrame columns in one pass
-  names_df = df['full_name'].str.split(' ', n=1, expand=True)
-  names_df.columns = ['First_Name', 'Last_Name']
-  ```
+Pandas `.str` accessor methods delegate string evaluations directly to underlying C/Cython implementations, operating over continuous memory blocks while natively propagating missing values (`NaN`) without throwing `TypeError`.
 
-### 2.3 Named Regex Extraction (`?P<Name>...`)
-When extracting multiple fields from structured codes (e.g. `TXN_2026-NA-USA-ORD#88412_USD$14,500.50_STATUS:COMPLETED_FLAG:AUDIT`), using named capture groups extracts every token into an appropriately named column in a single pass:
+### 2.2 Enterprise Messy String Sanitation
+The module cleans enterprise data containing:
+1. **Padded Whitespace & Case Inconsistencies:** `Emp_001 `, `finance`
+2. **Compound Corporate Email Addresses:** `firstname.lastname+tag@subdomain.org.in`
+3. **Multi-Format Contact Phone Numbers:** `+91-98765-43210`, `(022) 2410-1234`, `800.555.0199`
+4. **Alphanumeric Project Identifiers:** `PROJ-ENG-2026-X09`
+
+### 2.3 Regular Expression Extraction with Named Capture Groups
+Instead of fragile positional indexing, we leverage named capturing groups `(?P<group_name>pattern)`:
 
 ```python
-pattern = (
-    r'TXN_(?P<Year>\d{4})-'
-    r'(?P<Region>[A-Z]{2})-'
-    r'(?P<Country>[A-Z]{3})-'
-    r'ORD#(?P<Order_ID>\d+)_'
-    r'(?P<Currency>[A-Z]{3}|[^\d]+)'
-    r'(?P<Raw_Amount>[\d,]+(?:\.\d{2})?)_'
-    r'STATUS:(?P<Status>[A-Z]+)_'
-    r'FLAG:(?P<Audit_Flag>[A-Z]+)'
-)
-
-ledger = df['raw_txn'].str.extract(pattern)
+email_regex = r'^(?P<username>[a-zA-Z0-9_.+-]+)@(?P<domain>[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)$'
+extracted_email_parts = df['Email'].str.extract(email_regex)
 ```
 
-### 2.4 Multiple Matches (`extractall`) & Backreferences
-* **`.str.extractall(regex)`:** Finds all occurrences of repeating patterns (e.g. `#Hashtags`, `@mentions`) and outputs a MultiIndex Series indexed by `(row_index, match_number)`.
-* **Regex Substitution with Backreferences:** Replaces matched patterns while referencing captured groups (`\1`, `\2` or `\g<name>`) for phone number and date standardization.
-
 > [!WARNING]
-> **⚠️ Interview Trap (Strings & Regex):** `.apply(lambda x: re.search(...))` is up to $50\times$ slower, creates Python VM interpreter overhead on every row, and crashes on `None`/`np.nan` with `TypeError`. Always use compiled `.str` accessor methods (`.str.extract()`, `.str.contains()`); they natively propagate `NaN` without crashing.
+> **⚠️ Interview Trap (Vectorized Regex):** `.str.extract()` requires capturing parentheses `(...)` and extracts only the first match. Use `.str.extractall()` for multiple matches per string. For quick true/false filtering, prefer `.str.contains(pat, regex=True, na=False)`.
 
 ---
 
-## 3. Transform Pipeline: HR & IT Salary Analysis
-* **Laboratory Location:** [`Day9/data_wrangling/01_data_wrangling.ipynb`](data_wrangling/01_data_wrangling.ipynb#3-transform-pipeline-hr--it-salary-analysis)
+## 3. Transform Pipeline (HR & IT Salary Analysis)
+* **Laboratory Location:** [`Day9/data_wrangling/01_data_wrangling.ipynb`](data_wrangling/01_data_wrangling.ipynb#3-transform-pipeline)
 
-### 3.1 Declarative Pipelines via Method Chaining & `df.pipe()`
-Procedural state modification (`df['a'] = ...`, `df['b'] = ...` spread over dozens of cells) creates fragile scripts with untracked mutable state.
+### 3.1 Pipeline Design Principles
+Enterprise data wrangling must be **declarative**, **reproducible**, and **immutable**. Traditional procedural Pandas scripts mutate state across multiple loose variables, making testing and DAG orchestration difficult.
 
-The modern Pandas paradigm structures data wrangling as a pure functional pipeline:
+We leverage method chaining anchored by Pandas `.pipe()`:
+
+$$\text{Raw Dataset} \xrightarrow{\text{Sanitize}} \text{DF}_1 \xrightarrow{\text{Impute}} \text{DF}_2 \xrightarrow{\text{Winsorize}} \text{DF}_3 \xrightarrow{\text{Feature Eng}} \text{Clean Output}$$
+
+### 3.2 Simplified HR and IT Focus & Per-Group Boxplot
+To maximize clarity without unnecessary complexity, the pipeline focuses on **HR and IT Salary Distributions**:
+* Standardizes department representations to strictly **`HR`** and **`IT`**.
+* Handles missing salary records via department-specific median imputation.
+* Computes intra-department relative metrics (Group Z-Scores and Percent of Department Median).
+* Visualizes the distributions via **comparative per-group boxplots** to clearly contrast pay bands and anomalies.
 
 ```python
-df_clean = (
-    raw_df
-    .pipe(clean_headers_and_strings)
-    .pipe(impute_departmental_median, group_col='dept', col='annual_salary')
-    .pipe(winsorize_salary, col='annual_salary', group_col='dept')
-    .pipe(calculate_dept_zscore)
-    .pipe(validate_schema)
+# Intra-Group Standardized Salary (Group Z-Score)
+df['salary_zscore'] = df.groupby('dept')['salary'].transform(
+    lambda x: (x - x.mean()) / x.std()
 )
 ```
 
-### 3.2 `groupby().transform()` vs. `groupby().apply()`
-| Dimension | `groupby().transform()` | `groupby().apply()` |
-| :--- | :--- | :--- |
-| **Output Shape** | **Strictly guaranteed** to match input rows ($N \to N$) | Arbitrary shape (scalar, Series, or reduced DataFrame) |
-| **Index Alignment** | Preserves original index exactly; enables direct assignment | Often re-indexes or creates hierarchical indices |
-| **Performance** | Optimized C-routines for standard aggregations (`mean`, `median`, `std`) | Incurs Python function invocation overhead per group |
-| **Best Use Case** | Within-group Z-scores, group median imputation, group percentages | Complex custom logic that reshapes data |
-
-### 3.3 Focused HR vs IT Salary Pipeline Operations:
-1. **Departmental Median Imputation:** Fills missing salaries with the department's median (`HR` median for HR, `IT` median for IT) using `transform('median')` to preserve between-group variance.
-2. **Winsorization (Outlier Capping):** Caps extreme executive salaries (e.g., $350k) at the 95th percentile per department group using `transform()`.
-3. **Within-Department Z-Score:**
-   $$Z_{i, \text{dept}} = \frac{\text{Salary}_i - \mu_{\text{dept}}}{\sigma_{\text{dept}}}$$
-4. **Per-Group Boxplot Audit:**
-   Side-by-side boxplots for every department group (`HR` vs `IT`), comparing raw distribution with extreme outliers against the pipeline-cleaned, stabilized distribution.
-
 > [!WARNING]
-> **⚠️ Interview Trap (`transform` vs `apply`):** `apply()` can reshape, drop rows, or return scalar aggregates. `transform()` strictly guarantees output shape matches input rows ($N \to N$) aligned with the input index. Always use `transform()` when broadcasting group stats (Z-scores, group medians) back to rows.
+> **⚠️ Interview Trap (Transform vs Apply):** `apply()` returns a reduced scalar or aggregated Series when used with aggregation functions, altering the DataFrame's shape. `transform()` **guarantees** $N \to N$ row preservation aligned with the original index, making it essential for broadcast group imputation and group normalization.
 
 ---
 
 ## 4. Memory Optimisation and Data Type Downcasting
 * **Laboratory Location:** [`Day9/data_wrangling/01_data_wrangling.ipynb`](data_wrangling/01_data_wrangling.ipynb#4-memory-optimisation-and-data-type-downcasting)
 
-### 4.1 Memory Architecture of Pandas
-On 64-bit systems, Pandas defaults to:
-* `int64` (8 bytes / integer): Range $[-9.22 \times 10^{18}, +9.22 \times 10^{18}]$. Storing small values (age, ratings, days) wastes $87.5\%$ of RAM!
-* `float64` (8 bytes / float): Excessive precision for standard telemetry and financial figures.
-* `object` (8 bytes pointer + Python string on heap): Causes extreme memory fragmentation and CPU cache misses.
+### 4.1 Memory Mechanics of Pandas DataFrames
+By default, Pandas allocates conservative 64-bit data types:
+* `int64`: 8 bytes per cell ($\pm 9.22 \times 10^{18}$)
+* `float64`: 8 bytes per cell (15–17 decimal digits)
+* `object`: 8 bytes per cell for memory pointer + external Python string heap allocation (50–80 bytes per string)
 
-### 4.2 Downcasting Rules & Memory Savings
-| Target Type | Bytes | Safe Numerical Range | RAM Reduction vs Default |
-| :--- | :---: | :--- | :---: |
-| `int8` | 1 | $-128 \dots +127$ | **$87.5\%$** |
-| `int16` | 2 | $-32,768 \dots +32,767$ | **$75.0\%$** |
-| `int32` | 4 | $-2.14 \times 10^9 \dots +2.14 \times 10^9$ | **$50.0\%$** |
-| `float32` | 4 | $10^{-38} \dots 10^{38}$ ($7$ decimal digits) | **$50.0\%$** |
-| `category` | 1–2 | Low cardinality ($< 50\%$ unique rows) | **$80.0\% - 95.0\%$** |
+Calling `df.info()` or `df.memory_usage()` without `deep=True` only counts the 8-byte pointer references, hiding up to **90%** of actual memory usage!
 
-### 4.3 Automated Optimization Benchmark (250,000 Rows)
-Running the laboratory's `optimize_dataframe_memory()` function on a 250,000-row enterprise dataset:
-* **Original Footprint:** `64.37 MB`
-* **Optimized Footprint:** `9.54 MB`
-* **Net RAM Reduction:** **`85.18%`**
-* **Numerical Invariance:** Verified zero drift in statistical means and sums ($|\Delta \mu| < 10^{-6}$).
+### 4.2 Integer and Float Downcasting Decision Matrix
+
+| Data Type | Target Sub-Type | Dynamic Range | Memory Savings vs 64-bit |
+| :--- | :--- | :--- | :---: |
+| **Integer (Unsigned)** | `uint8` | $0 \dots 255$ | **87.5%** |
+| **Integer (Signed)** | `int8` | $-128 \dots 127$ | **87.5%** |
+| **Integer (Unsigned)** | `uint16` | $0 \dots 65,535$ | **75.0%** |
+| **Integer (Signed)** | `int16` | $-32,768 \dots 32,767$ | **75.0%** |
+| **Integer (Signed)** | `int32` | $-2.14 \times 10^9 \dots 2.14 \times 10^9$ | **50.0%** |
+| **Float** | `float32` | 7 decimal digits (IEEE 754) | **50.0%** |
 
 > [!WARNING]
-> **⚠️ Interview Trap (Downcasting & Category):**
-> 1. Never downcast `float64` to `float16` — it only has 3 decimal digits of precision and lacks hardware SIMD vectorization on most CPUs. Use `float32`.
-> 2. `category` dtype increases memory on high-cardinality columns ($> 50\%$ unique). Only use when unique count $< 50\%$ (ideally $< 5\%$) of total rows.
+> **⚠️ Interview Trap (Float16):** Never downcast financial metrics to `float16`. `float16` only supports 3–4 decimal digits of precision, creating catastrophic rounding errors, and lacks hardware SIMD acceleration on most CPUs. Always stop at `float32`.
+
+### 4.3 Categorical Encoding: The Cardinality Rule
+Converting string `object` columns to `category` replaces repetitive string allocations with an integer lookup table (dictionary codes + unique categories).
+
+$$\text{Category Memory} = \text{Unique Strings} \times \text{Size} + N_{\text{rows}} \times \text{Code Size (1, 2, or 4 bytes)}$$
+
+* **Cardinality Rule:** Only convert columns where $\frac{\text{Unique Count}}{N_{\text{total}}} < 0.50$ (ideally $< 0.05$). For unique identifier strings (e.g., UUIDs), `category` **increases** memory usage.
 
 ---
 
 ## 5. High-Performance Query (`df.query` & `pd.eval`)
 * **Laboratory Location:** [`Day9/data_wrangling/01_data_wrangling.ipynb`](data_wrangling/01_data_wrangling.ipynb#5-high-performance-query-dfquery--pdeval)
 
-### 5.1 The Intermediate Array Bottleneck
-Standard boolean indexing:
+### 5.1 Why Boolean Indexing Creates Memory Bottlenecks
+Standard Pandas boolean compound filtering:
 ```python
-df[(df['A'] > 50) & (df['B'] < 30) & (df['C'] >= 250)]
+filtered = df[(df['A'] > 100) & (df['B'] < 50) & (df['C'] == 'Active')]
 ```
-Allocates multiple temporary boolean arrays in RAM for each sub-expression and bitwise operator. On datasets with millions of rows, this causes heavy garbage collection thrashing and memory spikes.
+forces Python to create **3 intermediate boolean Series** in RAM before computing the bitwise AND:
+1. `mask1 = df['A'] > 100` (Temporary Series in RAM)
+2. `mask2 = df['B'] < 50` (Temporary Series in RAM)
+3. `mask3 = mask1 & mask2` (Temporary Series in RAM)
+4. `mask4 = df['C'] == 'Active'` (Temporary Series in RAM)
+5. `final_mask = mask3 & mask4` (Final Series in RAM)
 
-### 5.2 The High-Performance NumExpr Engine
-`df.query()` and `pd.eval()` utilize **NumExpr**:
-* Parses expressions into C-level bytecode.
-* Breaks array evaluations into cache-friendly chunks that fit inside L1/L2/L3 CPU cache.
-* Executes multi-threaded loops in C, bypassing Python's Global Interpreter Lock (GIL).
+For datasets with 10M+ rows, these intermediate memory allocations trigger CPU cache misses, RAM thrashing, and out-of-memory (OOM) crashes.
 
-### 5.3 Query Syntax Highlights
-1. **Dynamic Variable Scoping with `@`:**
-   ```python
-   min_salary = 85000
-   target_depts = ['Engineering', 'Finance']
-   df.query('salary >= @min_salary and department in @target_depts')
-   ```
-2. **Backticks for Columns with Spaces:**
-   ```python
-   df.query('`Annual Base Salary ($)` > 100000 and `CSAT Rating` >= 4.5')
-   ```
-3. **Compound Arithmetic with `df.eval()`:**
-   ```python
-   df.eval('Net_Margin = (Revenue - OpEx) / Revenue', inplace=True)
-   ```
+### 5.2 The NumExpr Acceleration Engine
+`pd.eval()` and `df.query(engine='numexpr')` parse Python expressions into an Abstract Syntax Tree (AST), compile them to optimized C bytecode, and evaluate operations in **chunked CPU cache (L1/L2)** without allocating temporary full-length arrays.
 
-### 5.4 1,000,000-Row Execution Benchmark Scorecard
-Benchmark executed on 1,000,000 rows across 5 runs:
+Furthermore, `NumExpr` automatically leverages **all available CPU cores** for multi-threaded parallel execution.
 
-| Method | Mean Latency (ms) | Standard Deviation | Speedup Factor | Memory Overhead |
-| :--- | :---: | :---: | :---: | :--- |
-| **Standard Boolean Mask** | `4.16 ms` | $\pm 0.35\text{ ms}$ | $1.00\times$ (Baseline) | High (Multiple temporary boolean arrays) |
-| **`df.query(engine='python')`** | `7.38 ms` | $\pm 0.52\text{ ms}$ | $0.56\times$ (Slower) | Moderate (Python AST compilation) |
-| **`df.query(engine='numexpr')`** | **`2.14 ms`** | $\pm 0.18\text{ ms}$ | **`3.45× vs Python` ($1.95\times$ vs Mask)** | Minimal (Chunked CPU cache evaluation) |
+### 5.3 Syntax Rules for `df.query()`
+* **External Python Variables:** Prefix with `@` (e.g., `df.query('salary > @threshold')`).
+* **Column Names with Spaces/Symbols:** Wrap in backticks (e.g., `df.query('`Annual Salary ($)` > 100000')`).
+* **In-place Column Assignment via `pd.eval`:** `df.eval('Bonus = Salary * 0.15', inplace=True)`.
 
 > [!WARNING]
-> **⚠️ Interview Trap (`df.query` & `inplace`):**
-> 1. `df.query()` is slower on small datasets ($< 10k$ rows) due to expression parsing overhead; it only dominates on large datasets ($> 100k$ rows) via NumExpr multi-threading.
-> 2. `inplace=True` is an illusion — Pandas still copies internally and merely reassigns the pointer, while breaking method chaining pipelines.
+> **⚠️ Interview Trap (Query Overhead):** `df.query()` has string parsing overhead. On small DataFrames ($< 10,000$ rows), traditional boolean indexing is faster. `df.query()` dominates on large datasets ($> 100,000$ rows).
 
 ---
 
 ## 6. Summary & Architectural Scorecard
 
-| Module | Core Tool / API | Primary Advantage | When to Use | Key Gotcha |
-| :--- | :--- | :--- | :--- | :--- |
-| **1. MultiIndex** | `pd.IndexSlice`, `.xs()`, `stack()` / `unstack()` | Represents $N$-dimensional data cubes in 2D with $O(1)$ lookups. | Hierarchical reports (Region $\to$ Country $\to$ Year). | Always run `df.sort_index()` before range slicing to prevent errors. |
-| **2. Vectorised Strings** | `.str` accessor, Named Regex `(?P<Name>...)` | Compiled C routines; automatic `NaN` propagation; eliminates slow loops. | Parsing unstructured transaction logs, phone numbers, and tags. | Avoid `.apply(lambda x: ...)` for strings; use `.str.extract()` instead. |
-| **3. Transform Pipeline** | `df.pipe()`, `groupby().transform()` | Pure functional composability; preserves input index length. | Multi-stage cleaning, group-specific Z-score scaling and imputation. | Use `transform()` instead of `apply()` when broadcasting back to rows. |
-| **4. Memory Optimisation** | `pd.to_numeric(downcast=...)`, `category` dtype | Drastically cuts RAM usage ($> 80\%$) and speeds up groupbys. | Datasets with $\ge 100k$ rows or memory-constrained servers. | Ensure unique ratio $< 50\%$ before converting strings to `category`. |
-| **5. High-Performance Query** | `df.query(engine='numexpr')`, `pd.eval()` | Avoids temporary RAM array allocations; multi-threaded C execution. | Complex multi-condition filtering on datasets with $> 100k$ rows. | Use backticks (`` `Col Name` ``) for column names containing spaces. |
+| Technique | Core Advantage | Overhead / Limitation | Best Suited For |
+| :--- | :--- | :--- | :--- |
+| **MultiIndex (`pd.IndexSlice`)** | Models multidimensional cubes in 2D Pandas; zero redundant strings | Requires lexicographical sorting (`sort_index`) before slicing | Time-series panels, financial cohorts, geographic hierarchies |
+| **Vectorized `.str` Regex** | C-vectorized execution; natively propagates `NaN` without crashing | Slightly higher initial regex compile overhead | Mass data sanitization, log parsing, phone/email extraction |
+| **Transform Pipelines** | Guarantees strict $N \to N$ row preservation for broadcasting | Slower than simple vectorized arithmetic if using Python lambdas | Group Z-score, group median imputation, standardized KPI metrics |
+| **Memory Downcasting** | Reduces RAM footprint by 50%–85%; speeds up cache locality | Risk of integer overflow or precision loss if thresholds are wrong | Big data ingestion, ETL pipelines, preventing VM OOM crashes |
+| **`df.query` + `pd.eval`** | Multi-threaded C bytecode via `NumExpr`; avoids intermediate arrays | Expression parsing latency on small tables ($< 10\text{k}$ rows) | Filtering and column math on datasets exceeding 100k rows |
 
-## 7. 🚫 Critical Interview Traps & Viva Hacks (Punchy & Direct)
+---
 
-### ⚠️ Trap 1: The MultiIndex Slicing & Unsorted Index Crash
-* **The Trap:** Slicing inner levels of an unsorted MultiIndex (`df.loc[idx[:, 'Q1'], :]`).
-* **Why It Fails:** Raises `UnsortedIndexError` or silently causes severe performance degradation.
-* **Viva Fix:** Always call `df.sort_index(inplace=True)` before multi-level slicing with `pd.IndexSlice`.
+## 7. ⚠️ Critical Interview Traps & Viva Hacks (Punchy & Direct)
 
-### ⚠️ Trap 2: `transform()` vs. `apply()` in GroupBy
-* **The Trap:** Using `apply()` and `transform()` interchangeably to broadcast group metrics back to rows.
-* **The Reality:** **NO.** `transform()` strictly guarantees output shape matches input rows ($N \to N$) and aligns with the original index, allowing direct assignment (`df['z'] = ...`). `apply()` can reshape, drop, or return scalar aggregates.
-* **Viva Rule:** Use `transform()` whenever broadcasting group statistics back to original rows.
+### ⚠️ Trap 1: The Unsorted MultiIndex Slicing Crash
+* **The Trap:** Running `df.loc[idx[:, 'Q1'], :]` on a newly created MultiIndex.
+* **Why It Fails:** Raises `UnsortedIndexError`. Pandas requires keys in lexicographical order to perform logarithmic $O(\log N)$ binary search.
+* **Viva Rule:** Always call `df.sort_index(inplace=True)` before slicing with `pd.IndexSlice`.
+
+### ⚠️ Trap 2: `transform()` vs `apply()`
+* **The Trap:** Using `df.groupby('dept')['salary'].apply(lambda x: x - x.mean())`.
+* **Why It Fails:** `apply()` may alter the DataFrame's index or return a reduced dimension Series, causing index mismatch errors during assignment.
+* **Viva Rule:** `transform()` strictly guarantees $N \to N$ output aligned with the original index. Always use `transform()` for broadcasting group metrics!
 
 ### ⚠️ Trap 3: The `.apply(lambda x: ...)` String Bottleneck
 * **The Trap:** Using `.apply(lambda s: s.strip().lower())` or standard Python `re.search()` on string columns.
