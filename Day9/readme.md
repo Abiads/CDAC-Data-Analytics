@@ -25,6 +25,7 @@ Day9/
 4. [Module 4: Memory Optimisation and Data Type Downcasting](#4-memory-optimisation-and-data-type-downcasting)
 5. [Module 5: High-Performance Query (`df.query` & `pd.eval`)](#5-high-performance-query-dfquery--pdeval)
 6. [Summary & Architectural Scorecard](#6-summary--architectural-scorecard)
+7. [Critical Interview Traps & Viva Hacks](#7--critical-interview-traps--viva-hacks-punchy--direct)
 
 ---
 
@@ -237,6 +238,53 @@ Benchmark executed on 1,000,000 rows across 5 runs:
 | **3. Transform Pipeline** | `df.pipe()`, `groupby().transform()` | Pure functional composability; preserves input index length. | Multi-stage cleaning, group-specific Z-score scaling and imputation. | Use `transform()` instead of `apply()` when broadcasting back to rows. |
 | **4. Memory Optimisation** | `pd.to_numeric(downcast=...)`, `category` dtype | Drastically cuts RAM usage ($> 80\%$) and speeds up groupbys. | Datasets with $\ge 100k$ rows or memory-constrained servers. | Ensure unique ratio $< 50\%$ before converting strings to `category`. |
 | **5. High-Performance Query** | `df.query(engine='numexpr')`, `pd.eval()` | Avoids temporary RAM array allocations; multi-threaded C execution. | Complex multi-condition filtering on datasets with $> 100k$ rows. | Use backticks (`` `Col Name` ``) for column names containing spaces. |
+
+## 7. 🚫 Critical Interview Traps & Viva Hacks (Punchy & Direct)
+
+### ⚠️ Trap 1: The MultiIndex Slicing & Unsorted Index Crash
+* **The Trap:** Slicing inner levels of an unsorted MultiIndex (`df.loc[idx[:, 'Q1'], :]`).
+* **Why It Fails:** Raises `UnsortedIndexError` or silently causes severe performance degradation.
+* **Viva Fix:** Always call `df.sort_index(inplace=True)` before multi-level slicing with `pd.IndexSlice`.
+
+### ⚠️ Trap 2: `transform()` vs. `apply()` in GroupBy
+* **The Trap:** Using `apply()` and `transform()` interchangeably to broadcast group metrics back to rows.
+* **The Reality:** **NO.** `transform()` strictly guarantees output shape matches input rows ($N \to N$) and aligns with the original index, allowing direct assignment (`df['z'] = ...`). `apply()` can reshape, drop, or return scalar aggregates.
+* **Viva Rule:** Use `transform()` whenever broadcasting group statistics back to original rows.
+
+### ⚠️ Trap 3: The `.apply(lambda x: ...)` String Bottleneck
+* **The Trap:** Using `.apply(lambda s: s.strip().lower())` or standard Python `re.search()` on string columns.
+* **Why It Fails:** Up to $50\times$ slower, creates Python VM interpreter overhead on every row, and crashes on `None`/`np.nan` with `TypeError`.
+* **Viva Rule:** Always use compiled `.str` accessor methods (`df['col'].str.strip()`, `.str.extract()`); they natively propagate `NaN` without crashing.
+
+### ⚠️ Trap 4: The Blind `float16` Downcasting Disaster
+* **The Trap:** Downcasting `float64` to `float16` to save maximum memory.
+* **Why It Fails:** `float16` only has 3–4 decimal digits of precision (causes severe numerical truncation) and lacks hardware SIMD vectorization on most CPUs (runs in slow software emulation).
+* **Viva Rule:** Only downcast floats to `float32` (7 decimal digits, full hardware SIMD support).
+
+### ⚠️ Trap 5: The "Categorical Always Saves RAM" Myth
+* **The Trap:** Believing `df['col'].astype('category')` always reduces memory.
+* **The Reality:** For high-cardinality columns (UUIDs, transaction hashes, unique names where cardinality $> 50\%$), `category` **increases** memory due to dictionary table overhead plus integer codes!
+* **Viva Rule:** Only convert to `category` when unique values make up $< 50\%$ (ideally $< 5\%$) of total rows.
+
+### ⚠️ Trap 6: Is `df.query()` Always Faster Than Boolean Indexing?
+* **The Trap:** Claiming `df.query()` is always faster than `df[(col1 > x) & (col2 < y)]`.
+* **The Reality:** On small DataFrames ($< 10,000$ rows), boolean indexing is faster due to `query()`'s expression parsing/compilation overhead. `query(engine='numexpr')` only wins on large DataFrames ($> 100,000$ rows) where it eliminates temporary intermediate array allocations in RAM.
+
+### ⚠️ Trap 7: The `inplace=True` Fallacy
+* **The Trap:** Believing `inplace=True` prevents memory copies and is faster.
+* **The Reality:** In almost all Pandas methods (e.g., `dropna`, `reset_index`, `query`), Pandas creates an internal copy anyway and merely reassigns the pointer. `inplace=True` also breaks method chaining pipelines and is deprecated/discouraged in modern Pandas.
+* **Viva Rule:** Avoid `inplace=True`; prefer declarative method chaining.
+
+---
+
+### ⚡ Quick-Fire Interview Flashcards
+| Interview Question | 1-Line Punchy Answer |
+| :--- | :--- |
+| **Why use `pd.IndexSlice` over standard slices?** | Standard Python slice `:` is invalid syntax inside tuples for inner MultiIndex levels. |
+| **How does `.xs()` differ from `.loc`?** | `.xs()` allows selecting inner levels without specifying outer level wildcards. |
+| **What does `expand=True` do in `.str.split()`?** | Returns a multi-column DataFrame instead of a Series of Python lists. |
+| **Why is `pipe()` preferred over procedural assignment?** | Enables pure functional method chaining without intermediate mutable global variables. |
+| **What engine makes `df.query()` multi-threaded?** | `NumExpr` (evaluates C bytecode in CPU cache chunks). |
 
 ---
 **Module Completed:** Day 9 Advanced Data Wrangling & High-Performance Pandas  
