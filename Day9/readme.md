@@ -19,6 +19,7 @@ Day9/
 ---
 
 ## 📖 Table of Contents
+0. [💡 Jupyter Auto-Suggestion & Inline Help Shortcuts](#0--jupyter-auto-suggestion--inline-help-shortcuts)
 1. [Module 1: MultiIndex DataFrame and Hierarchical Slicing (North Region Sales)](#1-multiindex-dataframe-and-hierarchical-slicing-north-region-sales)
 2. [Module 2: Vectorised Strings and Regular Expressions](#2-vectorised-strings-and-regular-expressions)
 3. [Module 3: Transform Pipeline](#3-transform-pipeline)
@@ -26,6 +27,29 @@ Day9/
 5. [Module 5: High-Performance Query (`df.query` & `pd.eval`)](#5-high-performance-query-dfquery--pdeval)
 6. [Summary & Architectural Scorecard](#6-summary--architectural-scorecard)
 7. [Critical Interview Traps & Viva Hacks](#7--critical-interview-traps--viva-hacks-punchy--direct)
+
+---
+
+## 0. 💡 Jupyter Auto-Suggestion & Inline Help Shortcuts
+* **Laboratory Location:** [`Day9/data_wrangling/01_data_wrangling.ipynb`](data_wrangling/01_data_wrangling.ipynb#0--jupyter-auto-suggestion--inline-help-shortcuts)
+
+| Action | Shortcut / Syntax | Purpose & Behavior |
+| :--- | :---: | :--- |
+| **Auto-Suggest / Completion** | `Tab` | Triggers drop-down auto-completion for methods, attributes, and DataFrame column names (e.g., `df_sales.str.<Tab>`). |
+| **Docstring / Signature Tooltip** | `Shift + Tab` | Pops up function signature & docstring while typing inside parentheses (press 2x for full docstring, 4x to pin to bottom). |
+| **Quick Docstring Inspection** | `object?` (e.g. `pd.IndexSlice?`) | Displays object summary, parameters, and docstrings in a pop-up pager. |
+| **Source Code Inspection** | `object??` (e.g. `optimize_dataframe_memory??`) | Displays the full Python source code of any user-defined function. |
+| **IPython Quick Reference** | `%quickref` | Displays IPython cheatsheet and available magic commands. |
+
+### Built-in Interactive Helper: `suggest_wrangling_help(topic)`
+The laboratory notebook includes an interactive auto-suggestion helper function providing instant templates:
+```python
+suggest_wrangling_help('multiindex')    # Instant syntax templates for hierarchical indexing
+suggest_wrangling_help('regex')          # Regex patterns for named groups & extraction
+suggest_wrangling_help('pipeline')       # Transform pipeline & groupby transform templates
+suggest_wrangling_help('downcasting')    # Memory downcasting decision rules & code snippets
+suggest_wrangling_help('query')          # High-performance query syntax & numexpr templates
+```
 
 ---
 
