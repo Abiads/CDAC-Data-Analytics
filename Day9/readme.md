@@ -463,9 +463,9 @@ print(df.round(2).to_string(index=False))
 | Metric | Original Data | Winsorised Data | Takeaway |
 | :--- | :---: | :---: | :--- |
 | **Count** | 9 | 9 | Sample size $N$ preserved! |
-| **Mean** | 15.22 | 12.22 | Extreme pull reduced from 15.22 to 12.22 |
+| **Mean** | 15.22 | 12.44 | Extreme pull reduced from 15.22 to 12.44 |
 | **Median** | **12.00** | **12.00** | **Median strictly invariant!** |
-| **Std Dev** | 37.89 | 1.72 | Variance stabilized by 95%+ |
+| **Std Dev** | 37.94 | 1.94 | Variance stabilized by 95%+ |
 | **Min** | -50.00 | 10.00 | -50 capped to 10 |
 | **Max** | 100.00 | 15.00 | 100 capped to 15 |
 
