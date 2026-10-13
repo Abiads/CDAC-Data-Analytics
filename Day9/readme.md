@@ -19,7 +19,7 @@ Day9/
 ├── data_wrangling/
 │   ├── .gitkeep                           # Repository anchor
 │   ├── 01_data_wrangling.ipynb            # Master executed laboratory notebook (interactive help + 5 modules)
-│   └── 02_missing_data_imputation_and_cleaning.ipynb # Executed notebook: Missing Data (MCAR/MAR/MNAR), Imputation (KNN/MICE/Rolling), Winsorization, Entity Resolution
+│   └── 02_missing_malformed_data.ipynb    # Executed notebook: Missing Data (MCAR/MAR/MNAR), Imputation (KNN/MICE/Rolling), Outlier Capping, Duplicate Resolution
 ├── readme.md                              # Unified Day 9 Master Guide + Ali Sir's 6-Phase Curriculum Blueprint
 ├── readme_detail.md                       # Ali Sir's Granular 6-Phase Analytical Workflows
 └── test.py                                # Test script placeholder
@@ -374,7 +374,7 @@ Furthermore, `NumExpr` automatically leverages **all available CPU cores** for m
 ---
 
 ## 🔬 Day 9 Practical Modules (Part 2: Missing Data, Imputation, Outliers & Entity Resolution)
-* **Master Laboratory Location:** [`Day9/data_wrangling/02_missing_data_imputation_and_cleaning.ipynb`](data_wrangling/02_missing_data_imputation_and_cleaning.ipynb)
+* **Master Laboratory Location:** [`Day9/data_wrangling/02_missing_malformed_data.ipynb`](data_wrangling/02_missing_malformed_data.ipynb)
 
 ---
 
