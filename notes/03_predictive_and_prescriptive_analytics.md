@@ -232,3 +232,32 @@ print(f"Maximum Profit: ${-opt_result.fun:.2f}")
    **A:** $R^2$ monotonically increases whenever a new feature is added, even if that feature is completely useless noise. Adjusted $R^2$ includes a degrees-of-freedom penalty for every additional predictor, only increasing if the new feature genuinely improves explanatory power.
 3. **Q:** *How does Prescriptive Analytics build on Predictive Analytics?*  
    **A:** Predictive analytics outputs future likelihoods or forecasts. Prescriptive analytics takes those predictions as parameters into an optimization algorithm or decision rule framework to recommend the mathematically optimal action under business constraints.
+
+---
+
+## 🚫 Critical Interview Traps to Avoid (Punchy & Direct)
+
+### ⚠️ Trap 1: "Decision Trees can extrapolate linear regression trends"
+* **The Trap:** Believing a Decision Tree Regressor can forecast trends beyond the range seen in training data.
+* **Why It Fails:** Decision trees partition feature space into orthogonal step-functions (constant leaf values). For any input $X > X_{\max}$, it predicts the mean of the nearest training leaf (a flat horizontal line).
+* **Viva Rule:** *Decision trees cannot extrapolate outside the training bounding box; use linear models or polynomial splines for trend extrapolation.*
+
+### ⚠️ Trap 2: "High Information Gain always means a great splitting feature"
+* **The Trap:** Splitting on unique identifier columns (e.g., `Customer_ID`, `Transaction_Hash`).
+* **Why It Fails:** Attributes with near-100% distinct values create pure 1-element leaves, yielding near-maximum Information Gain ($IG \approx 1.0$) while having zero generalizable signal.
+* **Viva Rule:** *Use Gain Ratio (C4.5) or Gini Impurity (CART) which penalize high-cardinality partitions.*
+
+### ⚠️ Trap 3: "Multicollinearity destroys regression prediction accuracy"
+* **The Trap:** Thinking high collinearity between predictors destroys $\hat{Y}$ prediction.
+* **The Reality:** Multicollinearity inflates standard errors of individual coefficients ($\beta_j$), making their sign and p-values unstable. However, overall prediction accuracy ($\hat{Y}$) and $R^2$ remain largely unaffected.
+* **Viva Rule:** *Multicollinearity ruins coefficient interpretability, not overall prediction accuracy.*
+
+### ⚠️ Trap 4: "Heteroscedasticity biases OLS slope coefficients"
+* **The Trap:** Believing non-constant error variance causes the OLS slope $\beta_1$ to be biased.
+* **The Reality:** OLS slope estimates remain unbiased and consistent under heteroscedasticity. However, the standard errors are biased, invalidating t-statistics, p-values, and confidence intervals.
+* **Viva Rule:** *Heteroscedasticity leaves coefficients unbiased, but invalidates hypothesis tests; use White's robust standard errors.*
+
+### ⚠️ Trap 5: "Linear Programming can get trapped in local optima"
+* **The Trap:** Worrying that a Linear Programming solver found a local rather than global optimum.
+* **The Reality:** In Linear Programming, the feasible region is convex (a polyhedron) and the objective function is linear (planar). Any local optimum is guaranteed to be a global optimum!
+* **Viva Rule:** *Linear programs have convex solution spaces; every local optimum is strictly a global optimum.*

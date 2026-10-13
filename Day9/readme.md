@@ -62,6 +62,9 @@ north_q1_sales = df_sales.loc[
 ]
 ```
 
+> [!WARNING]
+> **⚠️ Interview Trap (MultiIndex):** Slicing inner levels of an unsorted MultiIndex (`df.loc[idx[:, 'Q1'], :]`) raises `UnsortedIndexError`. Always run `df_sales.sort_index(inplace=True)` before slicing with `pd.IndexSlice`.
+
 > [!CAUTION]
 > **The Lexicographical Sorting Requirement:** Always run `df_sales.sort_index(inplace=True)` before performing multi-level range slicing (`idx['East':'North', ...]`). Slicing an unsorted MultiIndex will trigger `UnsortedIndexError` or cause silent performance degradation.
 
@@ -123,6 +126,9 @@ ledger = df['raw_txn'].str.extract(pattern)
 * **`.str.extractall(regex)`:** Finds all occurrences of repeating patterns (e.g. `#Hashtags`, `@mentions`) and outputs a MultiIndex Series indexed by `(row_index, match_number)`.
 * **Regex Substitution with Backreferences:** Replaces matched patterns while referencing captured groups (`\1`, `\2` or `\g<name>`) for phone number and date standardization.
 
+> [!WARNING]
+> **⚠️ Interview Trap (Strings & Regex):** `.apply(lambda x: re.search(...))` is up to $50\times$ slower, creates Python VM interpreter overhead on every row, and crashes on `None`/`np.nan` with `TypeError`. Always use compiled `.str` accessor methods (`.str.extract()`, `.str.contains()`); they natively propagate `NaN` without crashing.
+
 ---
 
 ## 3. Transform Pipeline
@@ -159,6 +165,9 @@ df_clean = (
    $$\text{Share}_{i} = \frac{\text{Sales}_i}{\sum_{j \in \text{dept}} \text{Sales}_j} \times 100\%$$
 3. **Group Median Imputation:** Imputing missing values with the corresponding departmental median rather than the global median to preserve subgroup variance.
 
+> [!WARNING]
+> **⚠️ Interview Trap (`transform` vs `apply`):** `apply()` can reshape, drop rows, or return scalar aggregates. `transform()` strictly guarantees output shape matches input rows ($N \to N$) aligned with the input index. Always use `transform()` when broadcasting group stats (Z-scores, group medians) back to rows.
+
 ---
 
 ## 4. Memory Optimisation and Data Type Downcasting
@@ -185,6 +194,11 @@ Running the laboratory's `optimize_dataframe_memory()` function on a 250,000-row
 * **Optimized Footprint:** `9.54 MB`
 * **Net RAM Reduction:** **`85.18%`**
 * **Numerical Invariance:** Verified zero drift in statistical means and sums ($|\Delta \mu| < 10^{-6}$).
+
+> [!WARNING]
+> **⚠️ Interview Trap (Downcasting & Category):**
+> 1. Never downcast `float64` to `float16` — it only has 3 decimal digits of precision and lacks hardware SIMD vectorization on most CPUs. Use `float32`.
+> 2. `category` dtype increases memory on high-cardinality columns ($> 50\%$ unique). Only use when unique count $< 50\%$ (ideally $< 5\%$) of total rows.
 
 ---
 
@@ -228,6 +242,11 @@ Benchmark executed on 1,000,000 rows across 5 runs:
 | **Standard Boolean Mask** | `4.16 ms` | $\pm 0.35\text{ ms}$ | $1.00\times$ (Baseline) | High (Multiple temporary boolean arrays) |
 | **`df.query(engine='python')`** | `7.38 ms` | $\pm 0.52\text{ ms}$ | $0.56\times$ (Slower) | Moderate (Python AST compilation) |
 | **`df.query(engine='numexpr')`** | **`2.14 ms`** | $\pm 0.18\text{ ms}$ | **`3.45× vs Python` ($1.95\times$ vs Mask)** | Minimal (Chunked CPU cache evaluation) |
+
+> [!WARNING]
+> **⚠️ Interview Trap (`df.query` & `inplace`):**
+> 1. `df.query()` is slower on small datasets ($< 10k$ rows) due to expression parsing overhead; it only dominates on large datasets ($> 100k$ rows) via NumExpr multi-threading.
+> 2. `inplace=True` is an illusion — Pandas still copies internally and merely reassigns the pointer, while breaking method chaining pipelines.
 
 ---
 
