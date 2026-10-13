@@ -19,7 +19,7 @@ Day9/
 ---
 
 ## 📖 Table of Contents
-1. [Module 1: MultiIndex DataFrame and Hierarchical Slicing](#1-multiindex-dataframe-and-hierarchical-slicing)
+1. [Module 1: MultiIndex DataFrame and Hierarchical Slicing (North Region Sales)](#1-multiindex-dataframe-and-hierarchical-slicing-north-region-sales)
 2. [Module 2: Vectorised Strings and Regular Expressions](#2-vectorised-strings-and-regular-expressions)
 3. [Module 3: Transform Pipeline](#3-transform-pipeline)
 4. [Module 4: Memory Optimisation and Data Type Downcasting](#4-memory-optimisation-and-data-type-downcasting)
@@ -29,52 +29,54 @@ Day9/
 
 ---
 
-## 1. MultiIndex DataFrame and Hierarchical Slicing
-* **Laboratory Location:** [`Day9/data_wrangling/01_data_wrangling.ipynb`](data_wrangling/01_data_wrangling.ipynb#1-multiindex-dataframe-and-hierarchical-slicing)
+## 1. MultiIndex DataFrame and Hierarchical Slicing (North Region Sales)
+* **Laboratory Location:** [`Day9/data_wrangling/01_data_wrangling.ipynb`](data_wrangling/01_data_wrangling.ipynb#1-multiindex-dataframe-and-hierarchical-slicing-north-region-sales)
 
 ### 1.1 Core Mathematical Motivation
-Real-world enterprise datasets inherently possess multidimensional relationships (e.g., $\text{Region} \times \text{Country} \times \text{Year} \times \text{Quarter}$). Flattening these dimensions into denormalized string columns wastes memory and requires expensive multi-column grouping. Storing them in nested dictionaries loses vectorized array speed.
+Real-world enterprise datasets inherently possess multidimensional relationships (e.g., $\text{Region} \times \text{State} \times \text{Year} \times \text{Quarter}$). Flattening these dimensions into denormalized string columns wastes memory and requires expensive multi-column grouping. Storing them in nested dictionaries loses vectorized array speed.
 
 A **MultiIndex** (Hierarchical Index) models $N$-dimensional data cubes directly within standard 2D Pandas structures:
 
-$$\text{Index Coordinate} = (L_0, L_1, L_2, \dots, L_{k-1})$$
+$$\text{Index Coordinate} = (\text{Region}, \text{State}, \text{Year}, \text{Quarter})$$
 
-### 1.2 Construction Approaches
-| Method | Code Signature | Best Use Case |
-| :--- | :--- | :--- |
-| **From Tuples** | `pd.MultiIndex.from_tuples(tuples, names=[...])` | Known irregular combinations |
-| **From Product** | `pd.MultiIndex.from_product([levels_a, levels_b], names=[...])` | Complete Cartesian products (all combinations) |
-| **From DataFrame** | `df.set_index(['Region', 'Country', 'Year'])` | Converting existing flat columns |
-| **Hierarchical Columns** | `pd.MultiIndex.from_tuples([('Financial', 'Revenue'), ...])` | Grouping metrics into logical domains |
+### 1.2 Construction: Regional Sales Performance
+* **Primary Case Scenario:** Enterprise sales tracking across 4 geographical regions (**North**, **South**, **West**, **East**), featuring **North region sales** across states (**Delhi**, **Punjab**, **UP**).
+* **Multi-Tier Metrics:**
+  * `Financial`: `Sales_Revenue_Lakhs`, `OpEx_Lakhs`, `Profit_Lakhs`
+  * `Operations`: `Units_Sold`, `CSAT_Score`
 
-### 1.3 Hierarchical Slicing & `pd.IndexSlice`
-Directly indexing inner levels using tuple slicing like `df.loc[(:, 'Q1')]` causes a Python `SyntaxError`. The standard solution is `pd.IndexSlice`:
+### 1.3 Hierarchical Slicing: First Example (North Region Sales)
+Directly indexing inner levels using tuple slicing like `df_sales.loc[(:, 'Q1')]` causes a Python `SyntaxError`. The standard solution is `pd.IndexSlice`:
 
 ```python
 idx = pd.IndexSlice
 
-# Select all regions & countries for Year 2026, Quarter 'Q1', retrieving Financial metrics
-subset = df.loc[
-    idx[:, :, 2026, 'Q1'],
-    idx['Financial', ['Revenue_M', 'EBITDA_M']]
+# First Example: Slice outer level directly -> North Region Sales
+north_region_sales = df_sales.loc['North']
+
+# Precise Multi-Level Slice via IndexSlice:
+# North Region, All States, Year 2026, Quarter 'Q1', Financial Metrics
+north_q1_sales = df_sales.loc[
+    idx['North', :, 2026, 'Q1'],
+    idx['Financial', ['Sales_Revenue_Lakhs', 'Profit_Lakhs']]
 ]
 ```
 
 > [!CAUTION]
-> **The Lexicographical Sorting Requirement:** Always run `df.sort_index(inplace=True)` before performing multi-level range slicing (`idx['APAC':'EMEA', ...]`). Slicing an unsorted MultiIndex will trigger `UnsortedIndexError` or cause silent performance degradation.
+> **The Lexicographical Sorting Requirement:** Always run `df_sales.sort_index(inplace=True)` before performing multi-level range slicing (`idx['East':'North', ...]`). Slicing an unsorted MultiIndex will trigger `UnsortedIndexError` or cause silent performance degradation.
 
 ### 1.4 Cross-Sectional Indexing with `.xs()`
 The `.xs()` method provides an explicit, highly readable API to slice across any arbitrary depth level:
-* **Row Cross-Section:** `df.xs(key='Q2', level='Quarter', drop_level=False)`
-* **Column Cross-Section:** `df.xs(key='Operations', axis=1, level='Metric_Type')`
+* **Row Cross-Section:** `df_sales.xs(key='Q2', level='Quarter', drop_level=False)`
+* **Column Cross-Section:** `df_sales.xs(key='Operations', axis=1, level='Metric_Type')`
 
 ### 1.5 Reshaping & Level Aggregations
 * **`unstack(level)`:** Pivots an index level into column headers (tall $\to$ wide).
 * **`stack(level)`:** Pivots column levels down into index rows (wide $\to$ tall).
 * **`swaplevel(i, j)`:** Swaps the hierarchical order of two levels.
-* **`groupby(level=...)`:** Performs aggregations across index levels without dropping coordinates:
+* **`groupby(level=...)`:** Aggregates across levels comparing North sales against other regions:
   ```python
-  regional_annual_sales = df.groupby(level=['Region', 'Year'])['Financial', 'Revenue_M'].sum()
+  regional_annual_sales = df_sales.groupby(level=['Region', 'Year'])['Financial', 'Sales_Revenue_Lakhs'].sum()
   ```
 
 ---
