@@ -22,7 +22,7 @@ Day9/
 0. [💡 Jupyter Auto-Suggestion & Inline Help Shortcuts](#0--jupyter-auto-suggestion--inline-help-shortcuts)
 1. [Module 1: MultiIndex DataFrame and Hierarchical Slicing (North Region Sales)](#1-multiindex-dataframe-and-hierarchical-slicing-north-region-sales)
 2. [Module 2: Vectorised Strings and Regular Expressions](#2-vectorised-strings-and-regular-expressions)
-3. [Module 3: Transform Pipeline](#3-transform-pipeline)
+3. [Module 3: Transform Pipeline (HR & IT Salary)](#3-transform-pipeline-hr--it-salary-analysis)
 4. [Module 4: Memory Optimisation and Data Type Downcasting](#4-memory-optimisation-and-data-type-downcasting)
 5. [Module 5: High-Performance Query (`df.query` & `pd.eval`)](#5-high-performance-query-dfquery--pdeval)
 6. [Summary & Architectural Scorecard](#6-summary--architectural-scorecard)
@@ -155,8 +155,8 @@ ledger = df['raw_txn'].str.extract(pattern)
 
 ---
 
-## 3. Transform Pipeline
-* **Laboratory Location:** [`Day9/data_wrangling/01_data_wrangling.ipynb`](data_wrangling/01_data_wrangling.ipynb#3-transform-pipeline)
+## 3. Transform Pipeline: HR & IT Salary Analysis
+* **Laboratory Location:** [`Day9/data_wrangling/01_data_wrangling.ipynb`](data_wrangling/01_data_wrangling.ipynb#3-transform-pipeline-hr--it-salary-analysis)
 
 ### 3.1 Declarative Pipelines via Method Chaining & `df.pipe()`
 Procedural state modification (`df['a'] = ...`, `df['b'] = ...` spread over dozens of cells) creates fragile scripts with untracked mutable state.
@@ -167,9 +167,9 @@ The modern Pandas paradigm structures data wrangling as a pure functional pipeli
 df_clean = (
     raw_df
     .pipe(clean_headers_and_strings)
-    .pipe(impute_departmental_medians, group_col='dept', num_cols=['salary', 'sales'])
-    .pipe(winsorize_salary, col='salary', group_col='dept')
-    .pipe(engineer_metrics)
+    .pipe(impute_departmental_median, group_col='dept', col='annual_salary')
+    .pipe(winsorize_salary, col='annual_salary', group_col='dept')
+    .pipe(calculate_dept_zscore)
     .pipe(validate_schema)
 )
 ```
@@ -182,12 +182,13 @@ df_clean = (
 | **Performance** | Optimized C-routines for standard aggregations (`mean`, `median`, `std`) | Incurs Python function invocation overhead per group |
 | **Best Use Case** | Within-group Z-scores, group median imputation, group percentages | Complex custom logic that reshapes data |
 
-### 3.3 Group-Specific Metrics Implemented in Pipeline:
-1. **Departmental Z-Score:**
-   $$Z_{i, \text{dept}} = \frac{X_i - \mu_{\text{dept}}}{\sigma_{\text{dept}}}$$
-2. **Department Sales Contribution Share:**
-   $$\text{Share}_{i} = \frac{\text{Sales}_i}{\sum_{j \in \text{dept}} \text{Sales}_j} \times 100\%$$
-3. **Group Median Imputation:** Imputing missing values with the corresponding departmental median rather than the global median to preserve subgroup variance.
+### 3.3 Focused HR vs IT Salary Pipeline Operations:
+1. **Departmental Median Imputation:** Fills missing salaries with the department's median (`HR` median for HR, `IT` median for IT) using `transform('median')` to preserve between-group variance.
+2. **Winsorization (Outlier Capping):** Caps extreme executive salaries (e.g., $350k) at the 95th percentile per department group using `transform()`.
+3. **Within-Department Z-Score:**
+   $$Z_{i, \text{dept}} = \frac{\text{Salary}_i - \mu_{\text{dept}}}{\sigma_{\text{dept}}}$$
+4. **Per-Group Boxplot Audit:**
+   Side-by-side boxplots for every department group (`HR` vs `IT`), comparing raw distribution with extreme outliers against the pipeline-cleaned, stabilized distribution.
 
 > [!WARNING]
 > **⚠️ Interview Trap (`transform` vs `apply`):** `apply()` can reshape, drop rows, or return scalar aggregates. `transform()` strictly guarantees output shape matches input rows ($N \to N$) aligned with the input index. Always use `transform()` when broadcasting group stats (Z-scores, group medians) back to rows.
