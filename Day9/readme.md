@@ -18,7 +18,8 @@ Day9/
 │       └── 01_indexing_vectorize.ipynb    # MultiIndex, regex, transform pipeline, downcasting, query
 ├── data_wrangling/
 │   ├── .gitkeep                           # Repository anchor
-│   └── 01_data_wrangling.ipynb            # Master executed laboratory notebook (interactive help + 5 modules)
+│   ├── 01_data_wrangling.ipynb            # Master executed laboratory notebook (interactive help + 5 modules)
+│   └── 02_missing_data_imputation_and_cleaning.ipynb # Executed notebook: Missing Data (MCAR/MAR/MNAR), Imputation (KNN/MICE/Rolling), Winsorization, Entity Resolution
 ├── readme.md                              # Unified Day 9 Master Guide + Ali Sir's 6-Phase Curriculum Blueprint
 ├── readme_detail.md                       # Ali Sir's Granular 6-Phase Analytical Workflows
 └── test.py                                # Test script placeholder
@@ -34,7 +35,7 @@ Day9/
   - [Phase 4: Communication & Storytelling (Visualization)](#phase-4-communication--storytelling-visualization)
   - [Phase 5: Advanced Intelligence (Unsupervised & Predictive Modeling)](#phase-5-advanced-intelligence-unsupervised--predictive-modeling)
   - [Phase 6: Validation & Causal Impact (Experimentation)](#phase-6-validation--causal-impact-experimentation)
-- [🛠️ Day 9 Practical Modules & High-Performance Pandas](#️-day-9-practical-modules--high-performance-pandas)
+- [🛠️ Day 9 Practical Modules (Part 1: High-Performance Pandas)](#️-day-9-practical-modules-part-1-high-performance-pandas)
   - [0. 💡 Jupyter Auto-Suggestion & Inline Help Shortcuts](#0--jupyter-auto-suggestion--inline-help-shortcuts)
   - [1. Module 1: MultiIndex DataFrame and Hierarchical Slicing (North Region Sales)](#1-multiindex-dataframe-and-hierarchical-slicing-north-region-sales)
   - [2. Module 2: Vectorised Strings and Regular Expressions](#2-vectorised-strings-and-regular-expressions)
@@ -43,6 +44,12 @@ Day9/
   - [5. Module 5: High-Performance Query (`df.query` & `pd.eval`)](#5-high-performance-query-dfquery--pdeval)
   - [6. Summary & Architectural Scorecard](#6-summary--architectural-scorecard)
   - [7. ⚠️ Critical Interview Traps & Viva Hacks (Punchy & Direct)](#7--critical-interview-traps--viva-hacks-punchy--direct)
+- [🔬 Day 9 Practical Modules (Part 2: Missing Data, Imputation, Outliers & Entity Resolution)](#-day-9-practical-modules-part-2-missing-data-imputation-outliers--entity-resolution)
+  - [8. Missing Data Taxonomy (MCAR, MAR, MNAR)](#8-missing-data-taxonomy-mcar-mar-mnar)
+  - [9. Advanced Imputation Strategies (KNN, Iterative / MICE, Rolling)](#9-advanced-imputation-strategies-knn-iterative--mice-rolling)
+  - [10. Outlier Handling via Winsorization & Clipping](#10-outlier-handling-via-winsorization--clipping)
+  - [11. Duplicate Detection & Entity Resolution Basics](#11-duplicate-detection--entity-resolution-basics)
+  - [12. ⚠️ Part 2 Interview Traps & Viva Hacks](#12-️-part-2-interview-traps--viva-hacks)
 
 ---
 
@@ -365,5 +372,123 @@ Furthermore, `NumExpr` automatically leverages **all available CPU cores** for m
 | **What engine makes `df.query()` multi-threaded?** | `NumExpr` (evaluates C bytecode in CPU cache chunks). |
 
 ---
-**Module Completed:** Day 9 Advanced Data Wrangling & High-Performance Pandas  
+
+## 🔬 Day 9 Practical Modules (Part 2: Missing Data, Imputation, Outliers & Entity Resolution)
+* **Master Laboratory Location:** [`Day9/data_wrangling/02_missing_data_imputation_and_cleaning.ipynb`](data_wrangling/02_missing_data_imputation_and_cleaning.ipynb)
+
+---
+
+### 8. Missing Data Taxonomy (MCAR, MAR, MNAR)
+
+Formulated by statistician Donald Rubin (1976), missingness is governed by 3 distinct stochastic processes:
+
+```
+┌──────────────┬───────────────────────────────┬──────────────────────────────────┬─────────────────────────────┐
+│ Type         │ Mathematical Condition        │ Real-World Scenario              │ Production Pipeline Impact  │
+├──────────────┼───────────────────────────────┼──────────────────────────────────┼─────────────────────────────┤
+│ **MCAR**     │ P(M | Y_obs, Y_mis) = P(M)    │ Dropped test vial; sensor packet │ Deletion (dropna) causes no │
+│              │ (Independent of all features) │ dropped on uniform coin flip.    │ bias; only loses power.     │
+├──────────────┼───────────────────────────────┼──────────────────────────────────┼─────────────────────────────┤
+│ **MAR**      │ P(M | Y_obs, Y_mis)           │ Younger people rarely report     │ Deletion creates SEVERE     │
+│              │ = P(M | Y_obs)                │ income; explained by Age (obs).  │ bias! Imputation required.  │
+├──────────────┼───────────────────────────────┼──────────────────────────────────┼─────────────────────────────┤
+│ **MNAR**     │ P(M) depends directly         │ Severely depressed patients skip │ Standard imputation fails!  │
+│              │ on the unobserved value Y_mis │ survey; millionaires hide wealth.│ Needs Heckman / bounds.     │
+└──────────────┴───────────────────────────────┴──────────────────────────────────┴─────────────────────────────┘
+```
+
+* **Mathematical Condition for Unbiased Deletion:** Only MCAR satisfies unbiased parameter recovery under listwise deletion (`df.dropna()`). Under MAR, listwise deletion distorts regression slopes $\beta$ and sample means $\mu$.
+
+---
+
+### 9. Advanced Imputation Strategies (KNN, Iterative / MICE, Rolling)
+
+#### 9.1 Why Mean / Median Imputation Fails
+* **Variance Deflation:** Replacing missing values with a central constant artificially shrinks sample variance:
+  $$\text{Var}(X_{\text{mean\_imp}}) < \text{Var}(X_{\text{true}})$$
+* **Covariance Collapse:** Mean imputation adds points aligned parallel to coordinate axes, dragging correlation $r_{X, Y}$ toward zero.
+
+#### 9.2 The Modern Imputation Toolkit
+
+1. **KNN Imputation (`KNNImputer`):**
+   * Computes NaN-Euclidean distance: $d(x, y) = \sqrt{\frac{p}{p_{\text{present}}} \sum_{i \in \text{present}} (x_i - y_i)^2}$.
+   * Imputes missing coordinates as the distance-weighted average of $K$ nearest geometric neighbors.
+   * **Mandatory Prerequisite:** Features must be scaled (e.g. `StandardScaler`) first.
+2. **Iterative Imputation / MICE (`IterativeImputer`):**
+   * Fits a series of chained round-robin regressions (Bayesian Ridge): each feature is modeled as a function of all remaining features in cyclic iterations.
+   * **Core Advantage:** Preserves multivariate covariance matrix $\Sigma$ and collinearities.
+3. **Rolling Window Imputation (Sequential / Time-Series):**
+   * Uses temporal proximity (`ffill()`, `bfill()`, moving median).
+   * **Production Rule:** Never use `bfill()` or centered windows in financial or forecasting models—this introduces **Lookahead Bias** by leaking future observations into past training states!
+
+---
+
+### 10. Outlier Handling via Winsorization & Clipping
+
+#### 10.1 Outlier Taxonomy: Errors vs. True Black Swans
+* **Measurement Glitches / Typos:** Sensor reading $999^\circ\text{C}$ or salary entered with extra zero. Must be capped or cleaned.
+* **Genuine Extremes:** Billionaire net worth, financial flash crashes, insurance claims. Must NOT be deleted in anomaly/fraud detection models!
+
+#### 10.2 Trimming vs. Clipping vs. Winsorization
+* **Trimming:** Drops observations outside $[Q_1 - 1.5 \text{IQR}, Q_3 + 1.5 \text{IQR}]$. Loses sample size $N$ and introduces selection truncation.
+* **Clipping (`df['col'].clip(lower, upper)`):** Clamps numerical extremes to hard upper and lower constants.
+* **Winsorization (`scipy.stats.mstats.winsorize(limits=[0.05, 0.05])`):**
+  * Replaces values below the $5^{\text{th}}$ percentile with $P_{05}$, and above the $95^{\text{th}}$ percentile with $P_{95}$.
+  * **Mathematical Properties:** Preserves exact sample size $N$, leaves the **median strictly unchanged**, and bounds variance.
+
+---
+
+### 11. Duplicate Detection & Entity Resolution Basics
+
+#### 11.1 The Deduplication Hierarchy
+1. **Exact Row Deduplication:** All columns match $\rightarrow$ `df.drop_duplicates()`.
+2. **Subset Key Deduplication:** Unique natural key matches (e.g., Email, PAN) $\rightarrow$ `df.drop_duplicates(subset=['email'])`.
+3. **Fuzzy Entity Resolution:** Typographical errors (`"Google"` vs `"Gooogle"`), word inversions (`"Sundar Pichai"` vs `"Pichai, Sundar"`), and abbreviations (`"Apple Inc"` vs `"Apple"`).
+
+#### 11.2 Entity Resolution Pipeline
+1. **String Normalization:** Lowercase $\rightarrow$ Strip punctuation $\rightarrow$ Remove corporate suffixes (`inc`, `corp`, `llc`) $\rightarrow$ Token sort.
+2. **Similarity Scoring:** SequenceMatcher Gestalt ratio $\frac{2M}{T}$ or Levenshtein edit distance.
+3. **Clustering & Canonical ID Assignment:** Connected components graph algorithm groups records above a similarity threshold (e.g. $\ge 0.72$) into unique canonical entity IDs.
+4. **The $O(N^2)$ Scalability Trap & The "Blocking" Solution:**
+   * Comparing 1M records pairwise requires $\approx 5 \times 10^{11}$ evaluations ($\approx 57$ days!).
+   * **Blocking Technique:** Hashes records by a coarse key (e.g., `State + Soundex(Last_Name)`), running fuzzy matching **only within matching blocks**.
+
+---
+
+### 12. ⚠️ Part 2 Interview Traps & Viva Hacks
+
+#### ⚠️ Trap 8: Testing for MNAR in Observational Data
+* **The Trap:** Claiming you can run a statistical test to prove data is MNAR.
+* **The Reality:** MNAR means missingness depends on the unobserved value itself. Because you never observe the missing values, you cannot mathematically prove MNAR from the dataset alone! It requires domain knowledge or external audit re-sampling.
+
+#### ⚠️ Trap 9: Unscaled KNN Imputation
+* **The Trap:** Calling `KNNImputer().fit_transform(df)` directly on raw unscaled tabular features.
+* **The Reality:** A feature with large scale (e.g. `Salary` in lakhs) dwarfs features with small scale (e.g. `Age` or `CSAT`). Nearest neighbors will be selected purely based on Salary! Always standardize features with `StandardScaler` first.
+
+#### ⚠️ Trap 10: Lookahead Bias in Time-Series Imputation
+* **The Trap:** Using backward fill (`bfill()`) or centered moving averages in financial or predictive forecasting models.
+* **The Reality:** `bfill()` leaks future price or sensor information into historical timestamps. In backtests, model accuracy appears unrealistically high, but it catastrophically fails in live forward production. Always use causal trailing windows (`ffill()` or trailing rolling mean).
+
+#### ⚠️ Trap 11: Does Winsorization Alter the Median?
+* **The Trap:** Believing Winsorization distorts the central tendency median.
+* **The Reality:** As long as symmetric trimming fraction $\alpha < 0.50$ (e.g. 5% top and bottom), the $50^{\text{th}}$ percentile (median) remains **strictly unchanged**!
+
+#### ⚠️ Trap 12: Pairwise Matching on Large Datasets ($O(N^2)$ Complexity)
+* **The Trap:** Running pairwise fuzzy matching loops on 500,000 CRM records.
+* **The Reality:** $500,000^2 / 2 = 1.25 \times 10^{11}$ comparisons, which crashes the server. Always apply a **Blocking Index** (e.g., Zip Code, First Letter Hash, or LSH) to restrict candidate pairs before scoring.
+
+---
+
+### ⚡ Part 2 Quick-Fire Viva Flashcards
+| Interview Question | 1-Line Punchy Answer |
+| :--- | :--- |
+| **Under which taxonomy is listwise deletion unbiased?** | Strictly MCAR (Missing Completely at Random). |
+| **Why is MICE preferred over Mean Imputation?** | Preserves multivariate covariance $\Sigma$ and correlations by modeling inter-feature regression chains. |
+| **What is the mathematical definition of MAR?** | $P(M \mid Y_{\text{obs}}, Y_{\text{mis}}) = P(M \mid Y_{\text{obs}})$ (missingness explained entirely by observed features). |
+| **When should you NEVER winsorize or clip outliers?** | In fraud detection, cyber-security, and insurance claim models where outliers represent the target signal. |
+| **Why must text normalization precede deduplication?** | Ensures case, whitespace, and punctuation variations (`'IBM'` vs `'ibm '`) are unified before exact matching. |
+| **How does Blocking speed up entity resolution?** | Filters candidates into coarse buckets, avoiding the global $\mathcal{O}(N^2)$ comparison bottleneck. |
+
+---
+**Module Completed:** Day 9 Advanced Data Wrangling, Cleaning & Entity Resolution Suite  
 **Author:** abs6187 (`23f2000876@ds.study.iitm.ac.in`)
