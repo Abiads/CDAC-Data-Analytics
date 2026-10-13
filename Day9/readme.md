@@ -15,7 +15,8 @@ Day9/
 │   │   ├── 01_pandas_indexing.ipynb       # Series creation, indexing, string series & dicts
 │   │   └── 02_df.ipynb                    # DataFrame construction, info, describe & reshape
 │   └── O1_data_wrangling/
-│       └── 01_indexing_vectorize.ipynb    # MultiIndex, regex, transform pipeline, downcasting, query
+│       ├── 01_indexing_vectorize.ipynb    # MultiIndex, regex, transform pipeline, downcasting, query
+│       └── 02_missing_malformed_data.ipynb # Classroom: Missing data taxonomy, KNN imputation, winsorization, duplicate detection
 ├── data_wrangling/
 │   ├── .gitkeep                           # Repository anchor
 │   ├── 01_data_wrangling.ipynb            # Master executed laboratory notebook (interactive help + 5 modules)
