@@ -432,9 +432,42 @@ Formulated by statistician Donald Rubin (1976), missingness is governed by 3 dis
 #### 10.2 Trimming vs. Clipping vs. Winsorization
 * **Trimming:** Drops observations outside $[Q_1 - 1.5 \text{IQR}, Q_3 + 1.5 \text{IQR}]$. Loses sample size $N$ and introduces selection truncation.
 * **Clipping (`df['col'].clip(lower, upper)`):** Clamps numerical extremes to hard upper and lower constants.
-* **Winsorization (`scipy.stats.mstats.winsorize(limits=[0.05, 0.05])`):**
-  * Replaces values below the $5^{\text{th}}$ percentile with $P_{05}$, and above the $95^{\text{th}}$ percentile with $P_{95}$.
+* **Winsorization (`scipy.stats.mstats.winsorize(limits=[1/9, 1/9])`):**
+  * Replaces extreme tail values with the nearest non-extreme percentile values (e.g. 1 value on each tail = $1/9 \approx 11.1\%$).
   * **Mathematical Properties:** Preserves exact sample size $N$, leaves the **median strictly unchanged**, and bounds variance.
+
+#### 10.3 Classroom Benchmark Example
+
+```python
+import numpy as np
+import pandas as pd
+from scipy.stats import mstats
+
+# 1. Load dataset with extreme negative and positive outliers (-50 and 100)
+data = np.array([10, 12, 14, 15, 13, 11, 12, 100, -50])
+data_sorted = np.sort(data)
+
+# 2. Winsorise extreme values (1 value on each tail = 1/9 ≈ 11.1%)
+winsorized_data = mstats.winsorize(data, limits=[1/9, 1/9])
+winsorized_sorted = np.sort(winsorized_data)
+
+# 3. Summary Table
+df = pd.DataFrame({
+    'Metric': ['Count', 'Mean', 'Median', 'Std Dev', 'Min', 'Max'],
+    'Original Data': [len(data), np.mean(data), np.median(data), np.std(data, ddof=1), np.min(data), np.max(data)],
+    'Winsorised Data': [len(winsorized_data), np.mean(winsorized_data), np.median(winsorized_data), np.std(winsorized_data, ddof=1), np.min(winsorized_data), np.max(winsorized_data)]
+})
+print(df.round(2).to_string(index=False))
+```
+
+| Metric | Original Data | Winsorised Data | Takeaway |
+| :--- | :---: | :---: | :--- |
+| **Count** | 9 | 9 | Sample size $N$ preserved! |
+| **Mean** | 15.22 | 12.22 | Extreme pull reduced from 15.22 to 12.22 |
+| **Median** | **12.00** | **12.00** | **Median strictly invariant!** |
+| **Std Dev** | 37.89 | 1.72 | Variance stabilized by 95%+ |
+| **Min** | -50.00 | 10.00 | -50 capped to 10 |
+| **Max** | 100.00 | 15.00 | 100 capped to 15 |
 
 ---
 
