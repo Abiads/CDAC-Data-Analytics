@@ -20,7 +20,9 @@ Day9/
 ├── data_wrangling/
 │   ├── .gitkeep                           # Repository anchor
 │   ├── 01_data_wrangling.ipynb            # Master executed laboratory notebook (interactive help + 5 modules)
-│   └── 02_missing_malformed_data.ipynb    # Executed notebook: Missing Data (MCAR/MAR/MNAR), Imputation (KNN/MICE/Rolling), Outlier Capping, Duplicate Resolution
+│   ├── 02_missing_malformed_data.ipynb    # Executed notebook: Missing Data (MCAR/MAR/MNAR), Imputation (KNN/MICE/Rolling), Outlier Capping, Duplicate Resolution
+│   ├── 03_eda_profiling_tools.ipynb       # Executed notebook: Automated Profiling (Sweetviz), Quality & Integrity Audits, Schema Contracts, Dataset Summaries
+│   └── sweetviz_report.html               # Generated interactive HTML profiling dashboard
 ├── readme.md                              # Unified Day 9 Master Guide + Ali Sir's 6-Phase Curriculum Blueprint
 ├── readme_detail.md                       # Ali Sir's Granular 6-Phase Analytical Workflows
 └── test.py                                # Test script placeholder
@@ -68,6 +70,7 @@ Day9/
 ---
 
 ### Phase 2: Auditing & Profiling (EDA)
+* **Laboratory Location:** [`Day9/data_wrangling/03_eda_profiling_tools.ipynb`](data_wrangling/03_eda_profiling_tools.ipynb) | **Interactive Report:** [`sweetviz_report.html`](data_wrangling/sweetviz_report.html)
 * **Core Nomenclature:** Automated Profiling, Schema Enforcement, Missing Data Taxonomy, Collinearity Diagnostics, Non-Linear Association, Confounding Identification.
 * **Granular Scenarios Handled:**
   * **Automated Data Quality Audits:** Generating instant HTML profiling reports (via YData-Profiling or Sweetviz) to inspect missingness percentages, duplicate entity keys, and memory allocations.
